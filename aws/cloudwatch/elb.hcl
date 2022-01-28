@@ -1,9 +1,10 @@
 scraper aws_elb_cloudwatch module {
-  frequency  = 10
+  frequency  = 60
   lookback   = 600
   timeout    = 5
   resolution = 60
   lag        = 120
+
 
   gauge "throughput" {
     source cloudwatch "throughput" {
