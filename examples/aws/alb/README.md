@@ -1,3 +1,9 @@
+- Modify and run `./generate-input-resources.sh` to generate `my-albs.json`
+
+  ```
+  ./generate-input-resources.sh
+  ```
+
 - Generate and show output metrics in debuggable format
 
   ```
