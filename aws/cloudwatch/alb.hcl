@@ -1,7 +1,7 @@
 scraper aws_alb_cloudwatch module {
-  frequency  = 10
+  frequency  = 60
   lookback   = 600
-  timeout    = 5
+  timeout    = 20
   resolution = 60
   lag        = 120
 
@@ -190,6 +190,174 @@ scraper aws_alb_cloudwatch module {
       }
     }
   }
-
 }
 
+scraper aws_alb_target_group_cloudwatch module {
+  frequency  = 10
+  lookback   = 600
+  timeout    = 5
+  resolution = 60
+  lag        = 120
+
+  gauge "target_connnection_error_count" {
+    source cloudwatch "target_connnection_error_count" {
+      query {
+        aggregator  = "Minimum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetConnectionErrorCount"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+  }
+
+
+  gauge "healthy_host_count" {
+    source cloudwatch "healthy_host_count" {
+      query {
+        aggregator  = "Minimum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "HealthyHostCount"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+  }
+
+  gauge "unhealthy_host_count" {
+    source cloudwatch "unhealthy_host_count" {
+      query {
+        aggregator  = "Minimum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "UnhealthyHostCount"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+  }
+
+  gauge "throughput" {
+    source cloudwatch "throughput" {
+      query {
+        aggregator  = "Sum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "RequestCountPerTarget"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+  }
+
+  gauge "status_4xx" {
+    source cloudwatch "status_4xx" {
+      query {
+        aggregator  = "Sum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "HTTPCode_Target_4XX_Count"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+  }
+
+  gauge "status_5xx" {
+    source cloudwatch "status_5xx" {
+      query {
+        aggregator  = "Sum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "HTTPCode_Target_5XX_Count"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+  }
+
+
+  vector "latency" {
+    dimension_label = "latency"
+
+    source cloudwatch "p50" {
+      query {
+        aggregator  = "p50"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+
+    source cloudwatch "p75" {
+      query {
+        aggregator  = "p75"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+
+    source cloudwatch "p90" {
+      query {
+        aggregator  = "p90"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+
+    source cloudwatch "p99" {
+      query {
+        aggregator  = "p99"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+
+    source cloudwatch "p100" {
+      query {
+        aggregator  = "Maximum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup = resources.each.TargetGroup
+        }
+      }
+    }
+  }
+
+}
