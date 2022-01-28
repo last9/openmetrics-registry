@@ -193,9 +193,9 @@ scraper aws_alb_cloudwatch module {
 }
 
 scraper aws_alb_target_group_cloudwatch module {
-  frequency  = 10
+  frequency  = 60
   lookback   = 600
-  timeout    = 5
+  timeout    = 20
   resolution = 60
   lag        = 120
 
