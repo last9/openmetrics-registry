@@ -1,4 +1,3 @@
-
 1.  If you want to discover ALBs through some filtering criteria  (e.g. specific tags), modify and run `./generate-input-resources.sh` to generate `my-albs.json`
 
     ```
