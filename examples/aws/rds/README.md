@@ -15,5 +15,5 @@
 3. Emit metrics on `http://localhost:9100/metrics`
 
   ```
-  /tmp/iox-agent run openmetricsLast9 --dir .
+  /tmp/iox-agent run openmetrics --dir .
   ```
