@@ -1,7 +1,7 @@
 1.  If you want to discover ALBs through some filtering criteria  (e.g. specific tags), modify and run `./generate-input-resources.sh` to generate `my-albs.json`
 
     ```
-    ./generate-input-resources.sh
+    ./generate-my-albs.sh
     ```
 
     You can also have a static list of ALBs in `my-albs.json`
