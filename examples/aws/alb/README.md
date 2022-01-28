@@ -12,6 +12,8 @@
     ./generate-my-alb-target-groups.py
     ```
 
+    You can also have a static list of ALBs in `my-alb-target-groups.json`
+
 3. Generate and show output metrics in debuggable format
 
   ```
