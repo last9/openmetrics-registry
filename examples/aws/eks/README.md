@@ -11,7 +11,7 @@ ContainerInsights exposes metrics of the following entities:
 4. Node
 
 The sample script [./generate-my-eks-payloads.sh](./generate-my-eks-payloads.sh) how easy it is to generate
-payloads for capturing metrics of the above components.
+payloads for capturing metrics of the above entities.
 
 
 ### Steps
