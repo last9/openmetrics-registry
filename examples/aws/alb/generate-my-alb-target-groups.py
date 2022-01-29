@@ -21,7 +21,9 @@ def main():
                 }
             )
     with open("my-alb-target-groups.json", "w") as fd:
-        fd.write(json.dumps(output, indent=2, default=str))
+        # Ensure that json dumps have sort_keys true to generate same json if there
+        # are no infra changes
+        fd.write(json.dumps(output, indent=2, sort_keys=True, default=str))
     return 0
 
 
