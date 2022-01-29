@@ -1,7 +1,7 @@
 scraper aws_eks_cluster_cloudwatch module {
-  frequency  = 60
+  frequency  = 10
   lookback   = 600
-  timeout    = 20
+  timeout    = 5
   resolution = 60
   lag        = 120
 
@@ -86,8 +86,8 @@ scraper aws_eks_service_cloudwatch module {
         metric_name = "pod_cpu_utilization"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          "Service"     = "$input{Service}"
+          Namespace   = resources.each.Namespace
+          Service     = resources.each.Service
         }
       }
     }
@@ -101,8 +101,8 @@ scraper aws_eks_service_cloudwatch module {
         metric_name = "pod_memory_utilization"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          "Service"     = "$input{Service}"
+          Namespace   = resources.each.Namespace
+          Service     = resources.each.Service
         }
       }
     }
@@ -116,8 +116,8 @@ scraper aws_eks_service_cloudwatch module {
         metric_name = "pod_cpu_utilization_over_pod_limit"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          "Service"     = "$input{Service}"
+          Namespace   = resources.each.Namespace
+          Service     = resources.each.Service
         }
       }
     }
@@ -131,8 +131,8 @@ scraper aws_eks_service_cloudwatch module {
         metric_name = "pod_memory_utilization_over_pod_limit"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          "Service"     = "$input{Service}"
+          Namespace   = resources.each.Namespace
+          Service     = resources.each.Service
         }
       }
     }
@@ -146,8 +146,8 @@ scraper aws_eks_service_cloudwatch module {
         metric_name = "pod_network_rx_bytes"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          "Service"     = "$input{Service}"
+          Namespace   = resources.each.Namespace
+          Service     = resources.each.Service
         }
       }
     }
@@ -161,8 +161,8 @@ scraper aws_eks_service_cloudwatch module {
         metric_name = "pod_network_tx_bytes"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          "Service"     = "$input{Service}"
+          Namespace   = resources.each.Namespace
+          Service     = resources.each.Service
         }
       }
     }
@@ -176,8 +176,8 @@ scraper aws_eks_service_cloudwatch module {
         metric_name = "service_number_of_running_pods"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          "Service"     = "$input{Service}"
+          Namespace   = resources.each.Namespace
+          Service     = resources.each.Service
         }
       }
     }
@@ -199,8 +199,8 @@ scraper aws_eks_pod_cloudwatch module {
         metric_name = "pod_cpu_utilization"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          PodName = resources.each.PodName
+          Namespace   = resources.each.Namespace
+          PodName     = resources.each.PodName
         }
       }
     }
@@ -214,8 +214,8 @@ scraper aws_eks_pod_cloudwatch module {
         metric_name = "pod_memory_utilization"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          PodName = resources.each.PodName
+          Namespace   = resources.each.Namespace
+          PodName     = resources.each.PodName
         }
       }
     }
@@ -229,8 +229,8 @@ scraper aws_eks_pod_cloudwatch module {
         metric_name = "pod_cpu_utilization_over_pod_limit"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          PodName = resources.each.PodName
+          Namespace   = resources.each.Namespace
+          PodName     = resources.each.PodName
         }
       }
     }
@@ -244,8 +244,8 @@ scraper aws_eks_pod_cloudwatch module {
         metric_name = "pod_memory_utilization_over_pod_limit"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          PodName = resources.each.PodName
+          Namespace   = resources.each.Namespace
+          PodName     = resources.each.PodName
         }
       }
     }
@@ -259,8 +259,8 @@ scraper aws_eks_pod_cloudwatch module {
         metric_name = "pod_network_rx_bytes"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          PodName = resources.each.PodName
+          Namespace   = resources.each.Namespace
+          PodName     = resources.each.PodName
         }
       }
     }
@@ -274,8 +274,8 @@ scraper aws_eks_pod_cloudwatch module {
         metric_name = "pod_network_tx_bytes"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          PodName = resources.each.PodName
+          Namespace   = resources.each.Namespace
+          PodName     = resources.each.PodName
         }
       }
     }
@@ -289,8 +289,8 @@ scraper aws_eks_pod_cloudwatch module {
         metric_name = "pod_number_of_container_restarts"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          Namespace= resources.each.Namespace
-          PodName = resources.each.PodName
+          Namespace   = resources.each.Namespace
+          PodName     = resources.each.PodName
         }
       }
     }
@@ -312,8 +312,8 @@ scraper aws_eks_node_cloudwatch module {
         metric_name = "node_cpu_utilization"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          NodeName = resources.each.NodeName
-          InstanceId = resources.each.InstanceId
+          NodeName    = resources.each.NodeName
+          InstanceId  = resources.each.InstanceId
         }
       }
     }
@@ -327,8 +327,8 @@ scraper aws_eks_node_cloudwatch module {
         metric_name = "node_filesystem_utilization"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          NodeName = resources.each.NodeName
-          InstanceId = resources.each.InstanceId
+          NodeName    = resources.each.NodeName
+          InstanceId  = resources.each.InstanceId
         }
       }
     }
@@ -342,8 +342,8 @@ scraper aws_eks_node_cloudwatch module {
         metric_name = "node_memory_utilization"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          NodeName = resources.each.NodeName
-          InstanceId = resources.each.InstanceId
+          NodeName    = resources.each.NodeName
+          InstanceId  = resources.each.InstanceId
         }
       }
     }
@@ -357,8 +357,8 @@ scraper aws_eks_node_cloudwatch module {
         metric_name = "node_number_of_running_pods"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          NodeName = resources.each.NodeName
-          InstanceId = resources.each.InstanceId
+          NodeName    = resources.each.NodeName
+          InstanceId  = resources.each.InstanceId
         }
       }
     }
@@ -372,8 +372,8 @@ scraper aws_eks_node_cloudwatch module {
         metric_name = "node_number_of_running_containers"
         dimensions = {
           ClusterName = resources.each.ClusterName
-          NodeName = resources.each.NodeName
-          InstanceId = resources.each.InstanceId
+          NodeName    = resources.each.NodeName
+          InstanceId  = resources.each.InstanceId
         }
       }
     }

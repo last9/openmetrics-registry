@@ -208,7 +208,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -224,7 +224,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -239,7 +239,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -254,7 +254,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -269,7 +269,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -284,7 +284,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -302,7 +302,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -315,7 +315,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -328,7 +328,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -341,7 +341,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
@@ -354,7 +354,7 @@ scraper aws_alb_target_group_cloudwatch module {
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
-          TargetGroup = resources.each.TargetGroup
+          TargetGroup  = resources.each.TargetGroup
         }
       }
     }
