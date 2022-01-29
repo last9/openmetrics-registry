@@ -72,9 +72,9 @@ scraper aws_eks_cluster_cloudwatch module {
 }
 
 scraper aws_eks_service_cloudwatch module {
-  frequency  = 60
+  frequency  = 10
   lookback   = 600
-  timeout    = 20
+  timeout    = 5
   resolution = 60
   lag        = 120
 
@@ -185,9 +185,9 @@ scraper aws_eks_service_cloudwatch module {
 }
 
 scraper aws_eks_pod_cloudwatch module {
-  frequency  = 60
+  frequency  = 10
   lookback   = 600
-  timeout    = 20
+  timeout    = 5
   resolution = 60
   lag        = 120
 
@@ -298,9 +298,9 @@ scraper aws_eks_pod_cloudwatch module {
 }
 
 scraper aws_eks_node_cloudwatch module {
-  frequency  = 60
+  frequency  = 10
   lookback   = 600
-  timeout    = 20
+  timeout    = 5
   resolution = 60
   lag        = 120
 
