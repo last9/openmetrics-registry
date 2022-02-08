@@ -1,0 +1,1 @@
+aws lambda list-functions --output json | jq -r '.[][].FunctionName | {FunctionName: .}' | jq -s . > my-lambdas.json
