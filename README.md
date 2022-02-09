@@ -1,6 +1,6 @@
-# iox-agent-registry
+# openmetrics-registry
 
-Modules to be used by IOX Agent.
+Modules to be used by Openmetrics-exporter.
 
 > What Terraform is for Cloud Operations, IOX is for Metrics.
 > 
