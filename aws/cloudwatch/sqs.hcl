@@ -13,7 +13,7 @@ scraper aws_sqs_cloudwatch module {
         metric_name = "NumberOfMessagesSent"
 
         dimensions = {
-          "QueueName" = "$input{QueueName}"
+          "QueueName" = resources.each.QueueName
         }
       }
     }
@@ -27,7 +27,7 @@ scraper aws_sqs_cloudwatch module {
         metric_name = "NumberOfMessagesReceived"
 
         dimensions = {
-          "QueueName" = "$input{QueueName}"
+          "QueueName" = resources.each.QueueName
         }
       }
     }
@@ -41,7 +41,7 @@ scraper aws_sqs_cloudwatch module {
         metric_name = "ApproximateNumberOfMessagesVisible"
 
         dimensions = {
-          "QueueName" = "$input{QueueName}"
+          "QueueName" = resources.each.QueueName
         }
       }
     }
@@ -55,7 +55,7 @@ scraper aws_sqs_cloudwatch module {
         metric_name = "NumberOfEmptyReceives"
 
         dimensions = {
-          "QueueName" = "$input{QueueName}"
+          "QueueName" = resources.each.QueueName
         }
       }
     }
@@ -69,7 +69,7 @@ scraper aws_sqs_cloudwatch module {
         metric_name = "NumberOfMessagesDeleted"
 
         dimensions = {
-          "QueueName" = "$input{QueueName}"
+          "QueueName" = resources.each.QueueName
         }
       }
     }
@@ -83,7 +83,7 @@ scraper aws_sqs_cloudwatch module {
         metric_name = "ApproximateNumberOfMessagesDelayed"
 
         dimensions = {
-          "QueueName" = "$input{QueueName}"
+          "QueueName" = resources.each.QueueName
         }
       }
     }
@@ -97,7 +97,7 @@ scraper aws_sqs_cloudwatch module {
         metric_name = "ApproximateAgeOfOldestMessage"
 
         dimensions = {
-          "QueueName" = "$input{QueueName}"
+          "QueueName" = resources.each.QueueName
         }
       }
     }

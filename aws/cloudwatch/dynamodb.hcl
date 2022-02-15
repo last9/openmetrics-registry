@@ -13,8 +13,8 @@ scraper aws_dynamodb_table_operation_cloudwatch module {
         metric_name = "SystemErrors"
 
         dimensions = {
-          "TableName" = "$input{TableName}"
-          "Operation" = "$input{Operation}"
+          "TableName" = resources.each.TableName
+          "Operation" = resources.each.Operation
         }
       }
     }
@@ -28,8 +28,8 @@ scraper aws_dynamodb_table_operation_cloudwatch module {
         metric_name = "ReturnedItemCount"
 
         dimensions = {
-          "TableName" = "$input{TableName}"
-          "Operation" = "$input{Operation}"
+          "TableName" = resources.each.TableName
+          "Operation" = resources.each.Operation
         }
       }
     }
@@ -43,8 +43,8 @@ scraper aws_dynamodb_table_operation_cloudwatch module {
         metric_name = "ThrottledRequests"
 
         dimensions = {
-          "TableName" = "$input{TableName}"
-          "Operation" = "$input{Operation}"
+          "TableName" = resources.each.TableName
+          "Operation" = resources.each.Operation
         }
       }
     }
@@ -58,8 +58,8 @@ scraper aws_dynamodb_table_operation_cloudwatch module {
         metric_name = "SuccessfulRequestLatency"
 
         dimensions = {
-          "TableName" = "$input{TableName}"
-          "Operation" = "$input{Operation}"
+          "TableName" = resources.each.TableName
+          "Operation" = resources.each.Operation
         }
       }
     }
@@ -81,7 +81,7 @@ scraper aws_dynamodb_table_cloudwatch module {
         metric_name = "ConsumedReadCapacityUnits"
 
         dimensions = {
-          "TableName" = "$input{TableName}"
+          "TableName" = resources.each.TableName
         }
       }
     }
@@ -95,7 +95,7 @@ scraper aws_dynamodb_table_cloudwatch module {
         metric_name = "ConsumedWriteCapacityUnits"
 
         dimensions = {
-          "TableName" = "$input{TableName}"
+          "TableName" = resources.each.TableName
         }
       }
     }
@@ -109,7 +109,7 @@ scraper aws_dynamodb_table_cloudwatch module {
         metric_name = "ReadThrottledEvents"
 
         dimensions = {
-          "TableName" = "$input{TableName}"
+          "TableName" = resources.each.TableName
         }
       }
     }
@@ -123,7 +123,7 @@ scraper aws_dynamodb_table_cloudwatch module {
         metric_name = "WriteThrottledEvents"
 
         dimensions = {
-          "TableName" = "$input{TableName}"
+          "TableName" = resources.each.TableName
         }
       }
     }
