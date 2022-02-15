@@ -5,6 +5,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
   resolution = 60
   lag        = 60
 
+
   gauge "connections" {
     source cloudwatch "connections" {
       query {
@@ -13,7 +14,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "DatabaseConnections"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -27,7 +28,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "ReadThroughput"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -42,7 +43,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "ReadLatency"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -56,7 +57,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "WriteThroughput"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -70,7 +71,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "WriteLatency"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -84,7 +85,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "UpdateThroughput"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -98,7 +99,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "UpdateLatency"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -112,7 +113,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "DeleteThroughput"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -126,7 +127,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "DeleteLatency"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -140,7 +141,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
         metric_name = "Deadlocks"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -154,6 +155,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
   resolution = 60
   lag        = 60
 
+
   gauge "network_in" {
     source cloudwatch "network_in" {
       query {
@@ -162,7 +164,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
         metric_name = "NetworkReceiveThroughput"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -176,7 +178,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
         metric_name = "NetworkTransmitThroughput"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -190,7 +192,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
         metric_name = "CPUUtilization"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -204,7 +206,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
         metric_name = "FreeLocalStorage"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -218,7 +220,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
         metric_name = "AuroraReplicaLag"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }
@@ -232,7 +234,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
         metric_name = "DiskQueueDepth"
 
         dimensions = {
-          "DBInstanceIdentifier" = "$input{DBInstanceIdentifier}"
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
         }
       }
     }

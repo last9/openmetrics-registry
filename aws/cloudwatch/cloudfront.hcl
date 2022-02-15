@@ -5,6 +5,7 @@ scraper aws_cloudfront_cloudwatch module {
   resolution = 60
   lag        = 60
 
+
   gauge "status_5xx" {
     source cloudwatch "5xx" {
       query {
@@ -12,8 +13,8 @@ scraper aws_cloudfront_cloudwatch module {
         namespace   = "AWS/CloudFront"
         metric_name = "5xxErrorRate"
         dimensions = {
-          "DistributionId" = "$input{DistributionId}"
-          "Region"         = "$input{Region}"
+          "DistributionId" = resources.each.DistributionId
+          "Region"         = resources.each.Region
         }
       }
     }
@@ -26,8 +27,8 @@ scraper aws_cloudfront_cloudwatch module {
         namespace   = "AWS/CloudFront"
         metric_name = "4xxErrorRate"
         dimensions = {
-          "DistributionId" = "$input{DistributionId}"
-          "Region"         = "$input{Region}"
+          "DistributionId" = resources.each.DistributionId
+          "Region"         = resources.each.Region
         }
       }
     }
@@ -40,8 +41,8 @@ scraper aws_cloudfront_cloudwatch module {
         namespace   = "AWS/CloudFront"
         metric_name = "BytesDownloaded"
         dimensions = {
-          "DistributionId" = "$input{DistributionId}"
-          "Region"         = "$input{Region}"
+          "DistributionId" = resources.each.DistributionId
+          "Region"         = resources.each.Region
         }
       }
     }
@@ -54,8 +55,8 @@ scraper aws_cloudfront_cloudwatch module {
         namespace   = "AWS/CloudFront"
         metric_name = "BytesUploaded"
         dimensions = {
-          "DistributionId" = "$input{DistributionId}"
-          "Region"         = "$input{Region}"
+          "DistributionId" = resources.each.DistributionId
+          "Region"         = resources.each.Region
         }
       }
     }
@@ -68,8 +69,8 @@ scraper aws_cloudfront_cloudwatch module {
         namespace   = "AWS/CloudFront"
         metric_name = "Requests"
         dimensions = {
-          "DistributionId" = "$input{DistributionId}"
-          "Region"         = "$input{Region}"
+          "DistributionId" = resources.each.DistributionId
+          "Region"         = resources.each.Region
         }
       }
     }

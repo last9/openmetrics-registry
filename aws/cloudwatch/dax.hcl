@@ -5,6 +5,7 @@ scraper aws_dax_cloudwatch module {
   resolution = 60
   lag        = 60
 
+
   gauge "throughput" {
     source cloudwatch "throughput" {
       query {
@@ -13,8 +14,8 @@ scraper aws_dax_cloudwatch module {
         metric_name = "TotalRequestCount"
 
         dimensions = {
-          "ClusterId" = "$input{ClusterId}"
-          "NodeId"    = "$input{NodeId}"
+          "ClusterId" = resources.each.ClusterId
+          "NodeId"    = resources.each.NodeId
         }
       }
     }
@@ -28,8 +29,8 @@ scraper aws_dax_cloudwatch module {
         metric_name = "ErrorRequestCount"
 
         dimensions = {
-          "ClusterId" = "$input{ClusterId}"
-          "NodeId"    = "$input{NodeId}"
+          "ClusterId" = resources.each.ClusterId
+          "NodeId"    = resources.each.NodeId
         }
       }
     }
@@ -43,8 +44,8 @@ scraper aws_dax_cloudwatch module {
         metric_name = "ThrottledRequestCount"
 
         dimensions = {
-          "ClusterId" = "$input{ClusterId}"
-          "NodeId"    = "$input{NodeId}"
+          "ClusterId" = resources.each.ClusterId
+          "NodeId"    = resources.each.NodeId
         }
       }
     }
@@ -58,8 +59,8 @@ scraper aws_dax_cloudwatch module {
         metric_name = "ClientConnections"
 
         dimensions = {
-          "ClusterId" = "$input{ClusterId}"
-          "NodeId"    = "$input{NodeId}"
+          "ClusterId" = resources.each.ClusterId
+          "NodeId"    = resources.each.NodeId
         }
       }
     }
@@ -73,8 +74,8 @@ scraper aws_dax_cloudwatch module {
         metric_name = "QueryCacheMisses"
 
         dimensions = {
-          "ClusterId" = "$input{ClusterId}"
-          "NodeId"    = "$input{NodeId}"
+          "ClusterId" = resources.each.ClusterId
+          "NodeId"    = resources.each.NodeId
         }
       }
     }
@@ -88,8 +89,8 @@ scraper aws_dax_cloudwatch module {
         metric_name = "CacheMemoryUtilization"
 
         dimensions = {
-          "ClusterId" = "$input{ClusterId}"
-          "NodeId"    = "$input{NodeId}"
+          "ClusterId" = resources.each.ClusterId
+          "NodeId"    = resources.each.NodeId
         }
       }
     }
@@ -103,8 +104,8 @@ scraper aws_dax_cloudwatch module {
         metric_name = "CPUUtilization"
 
         dimensions = {
-          "ClusterId" = "$input{ClusterId}"
-          "NodeId"    = "$input{NodeId}"
+          "ClusterId" = resources.each.ClusterId
+          "NodeId"    = resources.each.NodeId
         }
       }
     }
