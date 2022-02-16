@@ -1,0 +1,35 @@
+name: publish hcl modules
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Bump version and release
+        id: create_tag
+        uses: rymndhng/release-on-push-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          bump_version_scheme: patch
+
+      - name: Get HCL files to release
+        id: find_files
+        run: |
+          files=`find aws -name "*hcl"|awk '{a=$0; gsub("modules/", "", $0); gsub("/", "_", $0); print $0":"a}'|xargs`
+          echo "::set-output name=hcl_files::$files"
+        
+      - name: Upload assets
+        uses: meeDamian/github-release@2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.create_tag.outputs.tag_name }}
+          allow_override: true
+          gzip: false
+          files: >
+            ${{ steps.find_files.outputs.hcl_files }}

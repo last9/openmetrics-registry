@@ -1,0 +1,49 @@
+name: update-readme on release
+on: 
+  release:
+    types:
+      - created
+
+jobs:
+  get-latest-releases:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+        with: 
+          ref: main
+      - name: Get latest version of openmetrics-registry
+        id: openmetrics-registry
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: ${{ github.repository }}
+
+      - name: Update readme
+        run: |
+          chmod +x .github/workflows/scripts/update-readme.sh
+          ./.github/workflows/scripts/update-readme.sh update-readme
+        env: 
+          module_version: ${{ steps.openmetrics-registry.outputs.tag }}
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: updated readme
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          signoff: false
+          branch: updated-readme-on-release
+          delete-branch: true
+          title: 'chore: updates version and donwload links of modules in readme'
+          body: |
+            This PR,
+            - Updates versions and download links of openmetrics-exporter modules in README. 
+            - **Note: This is auto-generated PR so please test and verify before merging.** 
+          labels: |
+            readme-updates
+            automated pr
+            release
+          assignees: JBAhire
+          draft: false
+      

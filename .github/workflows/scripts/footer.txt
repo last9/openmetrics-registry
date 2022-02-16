@@ -1,0 +1,3 @@
+You can download modules for previous releases [here](https://github.com/last9/openmetrics-registy/releases). 
+
+## Learn more about openmetrics-exporter
