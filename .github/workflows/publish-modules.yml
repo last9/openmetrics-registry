@@ -1,4 +1,4 @@
-name: publish hcl modules
+name: publish openmetrics-exporter modules
 on:
   push:
     branches: [ master ]
