@@ -1,6 +1,6 @@
 config stackdriver "default" {
   project_id = "last9"
-  credentials_file = "${pwd}/gcp_creds.json"
+  credentials_file = env("GCP_CREDS_FILE")
 }
 
 var cloudsql_inputs {
