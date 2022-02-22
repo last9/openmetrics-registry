@@ -24,7 +24,7 @@ jobs:
       - name: Get HCL files to release
         id: find_files
         run: |
-          files=`./github/scripts/generate_assets.sh | xargs`
+          files=`.github/scripts/generate_assets.sh | xargs`
           echo "::set-output name=hcl_files::$files"
         
       - name: test
