@@ -1,0 +1,6 @@
+# Amazon ElastiCache
+
+| **Component**    | **Modules**           | **Resource Identifiers** | **Binary version** | **Module version** | **Latest Module URI**                                                                            | **Changelog**                                                              |
+|------------------|-----------------------|--------------------------|--------------------|--------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **Amazon ElastiCache** | `aws_elasticache_redis_cloudwatch`          | `CacheClusterId`                                         | v0.1.0             | v0.0.1             | [Download](https://github.com/last9/openmetrics-registry/releases/download/v0.0.1/aws_redis_cloudwatch_elasticache_elasticache_v0.0.1.hcl)     | [Changelog](https://github.com/last9/openmetrics-registry/blob/master/aws/cloudwatch/elasticache/CHANGELOG.md)   |
+|               | `aws_elasticache_cluster_cloudwatch`        | `CacheClusterId`                                         |                    |                    |                                                                                                                                    |          
