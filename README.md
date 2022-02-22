@@ -53,6 +53,6 @@ Please refer the tables below to find the right module for system components you
 
 
 ## Learn more about Openmetrics-exporter
-- [What is Openmetrics-exporter](https://last9.notion.site/openmetrics-exporter-06e2b2f0ae404968b4238c32257acc0c)
+- [What is Openmetrics-exporter?](https://last9.notion.site/openmetrics-exporter-06e2b2f0ae404968b4238c32257acc0c)
 
 
