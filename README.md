@@ -9,7 +9,7 @@ Please refer the tables below to find the right module for system components you
 
 ### AWS Cloudwatch
 
-| **Component** | **Modules**                               | **Resource identifiers**                               | **Binary version** | **Module version** | **Latst Module URI**                                                                                                                | **Changelog**                                                                                       |
+| **Component** | **Modules**                               | **Resource Identifiers**                               | **Binary version** | **Module version** | **Latst Module URI**                                                                                                                | **Changelog**                                                                                       |
 |---------------|-------------------------------------------|--------------------------------------------------------|--------------------|--------------------|------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
 | **AWS ALB**           | `aws_alb_cloudwatch`                        | `LoadBalancer`                                           | v0.1.0             | v0.0.1             | [Download](https://github.com/last9/openmetrics-registry/releases/download/v0.0.1/aws_cloudwatch_alb_alb_v0.0.1.hcl)                           | [Changelog](https://github.com/last9/openmetrics-registry/blob/master/aws/cloudwatch/alb/CHANGELOG.md)           |
 |               | `aws_alb_target_group_cloudwatch`           | `LoadBalancer`, `TargetGroup`                              |                    |                    |                                                                                                                                    |                                                                                                     |
@@ -43,7 +43,7 @@ Please refer the tables below to find the right module for system components you
 
 ### GCP Stackdriver
 
-| **Component**    | **Modules**           | **Resource identifiers** | **Binary version** | **Module version** | **Latest Module URI**                                                                            | **Changelog**                                                              |
+| **Component**    | **Modules**           | **Resource Identifiers** | **Binary version** | **Module version** | **Latest Module URI**                                                                            | **Changelog**                                                              |
 |------------------|-----------------------|--------------------------|--------------------|--------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
 | **Google Cloud SQL** | `gcp_cloudsql_logical`  | NA                       | v0.1.0             | v0.0.1             | [Download](https://github.com/last9/openmetrics-registry/releases/download/v0.0.1/gcp_cloudsql_v0.0.1.hcl) | [Changelog](https://github.com/last9/openmetrics-registry/blob/master/gcp/CHANGELOG.md) |
 |                  | `gcp_cloudsql_physical` |
