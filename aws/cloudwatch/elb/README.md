@@ -1,0 +1,5 @@
+# Amazon ELB
+
+| **Component**    | **Modules**           | **Resource identifiers** | **Binary version** | **Module version** | **Latest Module URI**                                                                            | **Changelog**                                                              |
+|------------------|-----------------------|--------------------------|--------------------|--------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **Amazon ELB**           | `aws_elb_cloudwatch`                        | `LoadBalancerName`                                       | v0.1.0             | v0.0.1             | [Download](https://github.com/last9/openmetrics-registry/releases/download/v0.0.1/aws_cloudwatch_elb_elb_v0.0.1.hcl)                           | [Changelog](https://github.com/last9/openmetrics-registry/blob/master/aws/cloudwatch/elb/CHANGELOG.md)           |

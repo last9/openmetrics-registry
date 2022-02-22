@@ -1,0 +1,5 @@
+# Amazon DAX
+
+| **Component**    | **Modules**           | **Resource identifiers** | **Binary version** | **Module version** | **Latest Module URI**                                                                            | **Changelog**                                                              |
+|------------------|-----------------------|--------------------------|--------------------|--------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **Amazon DAX**           | `aws_dax_cloudwatch`                        | `ClusterId`, `NodeId`                                      | v0.1.0             | v0.0.1             | [Download](https://github.com/last9/openmetrics-registry/releases/download/v0.0.1/aws_cloudwatch_dax_dax_v0.0.1.hcl)                           | [Changelog](https://github.com/last9/openmetrics-registry/blob/master/aws/cloudwatch/dax/CHANGELOG.md)           |

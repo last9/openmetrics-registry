@@ -1,0 +1,5 @@
+# Amazon NLB
+
+| **Component**    | **Modules**           | **Resource identifiers** | **Binary version** | **Module version** | **Latest Module URI**                                                                            | **Changelog**                                                              |
+|------------------|-----------------------|--------------------------|--------------------|--------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **AWS NLB**           | `aws_nlb_cloudwatch`                        | `LoadBalancer`                                           | v0.1.0             | v0.0.1             | [Download](https://github.com/last9/openmetrics-registry/releases/download/v0.0.1/aws_cloudwatch_nlb_nlb_v0.0.1.hcl)                           | [Changelog](https://github.com/last9/openmetrics-registry/blob/master/aws/cloudwatch/nlb/CHANGELOG.md)           |

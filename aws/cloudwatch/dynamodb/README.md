@@ -1,0 +1,6 @@
+# Amazon DynamoDb
+
+| **Component**    | **Modules**           | **Resource identifiers** | **Binary version** | **Module version** | **Latest Module URI**                                                                            | **Changelog**                                                              |
+|------------------|-----------------------|--------------------------|--------------------|--------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **Amazon DynamoDb**      | `aws_dynamodb_table_operation_cloudwatch`   | `TableName`, `Operation`                                   | v0.1.0             | v0.0.1             | [Download](https://github.com/last9/openmetrics-registry/releases/download/v0.0.1/aws_table_operation_cloudwatch_dynamodb_dynamodb_v0.0.1.hcl) | [Changelog](https://github.com/last9/openmetrics-registry/blob/master/aws/cloudwatch/dynamodb/CHANGELOG.md)      |
+|               | `aws_dynamodb_table_cloudwatch`             | `TableName`                                              |                    |                    |                                                                                                                                    |                                           

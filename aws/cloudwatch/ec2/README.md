@@ -1,0 +1,5 @@
+# AWS EC2
+
+| **Component**    | **Modules**           | **Resource identifiers** | **Binary version** | **Module version** | **Latest Module URI**                                                                            | **Changelog**                                                              |
+|------------------|-----------------------|--------------------------|--------------------|--------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| **AWS EC2**           | `aws_ec2_cloudwatch`                        | `InstanceId`                                             | v0.1.0             | v0.0.1             | [Download](https://github.com/last9/openmetrics-registry/releases/download/v0.0.1/aws_cloudwatch_ec2_ec2_v0.0.1.hcl)                           | [Changelog](https://github.com/last9/openmetrics-registry/blob/master/aws/cloudwatch/ec2/CHANGELOG.md)           |
