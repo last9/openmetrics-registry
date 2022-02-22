@@ -1,13 +1,3 @@
-<p align="center">
-  <h3 align="center">Openmetrics Registry</h3>
-  <p align="center">
-    A module registry for Openemtrics-exporter.  
-    <br />
-    <a href="https://docs.hypertrace.org"><strong>Learn more »</strong></a>
-    <br />
-  </p>
-</p>
-
 # About Openmetrics-exporter
 openmetrics-exporter is an Observability-as-Code software tool that reduces the toil of finding-and-combining useful metrics from layers and hundreds of components involved in modern Cloud-native systems. Every source, component, or metric is just a simple configuration file because the only “code” you should focus on is for your customers.
 
