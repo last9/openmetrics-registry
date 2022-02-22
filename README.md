@@ -1,4 +1,7 @@
-# About Openmetrics-exporter
+# Openmetrics-registry
+Modules to be used by Openmetrics-exporter.
+
+## What is Openmetrics-exporter?
 openmetrics-exporter is an Observability-as-Code software tool that reduces the toil of finding-and-combining useful metrics from layers and hundreds of components involved in modern Cloud-native systems. Every source, component, or metric is just a simple configuration file because the only “code” you should focus on is for your customers.
 
 ## What are Opemetrics-exporter modules?
