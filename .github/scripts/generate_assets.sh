@@ -10,7 +10,7 @@ for d in $module_dirs; do
     gsub(s[n], "version.txt", b)
     cmd = "cat " b
     cmd | getline c
-    gsub("[[:punct:]]hcl", "_v"c".hcl", a)
+    gsub("[[:alnum:]]+[[:punct:]]hcl", "v"c".hcl", a)
     print a":"path
   }'
 done
