@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openmetrics-exporter-deployment
+  labels:
+    app: openmetrics-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openmetrics-exporter
+  template:
+    metadata:
+      labels:
+        app: openmetrics-exporter
+    spec:
+      containers:
+      - name: openmetrics-exporter
+        image: last9/openmetrics-exporter:latest
+        command: ["/app/l9watcher"]
+        args: ["-a", "run openmetrics", "-c", "/var/iox/json-maker.sh", "-d", "true", "-f", "60", "-v", "true"]
+        ports:
+        - containerPort: 9100
+        volumeMounts:
+        - name: exporters
+          mountPath: /iox
+        envFrom:
+        - secretRef:
+            name: ome-env
+        imagePullPolicy: Never
+      volumes:
+      - name: exporters
+        configMap:
+          name: exporters
+
