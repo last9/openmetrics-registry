@@ -1,0 +1,37 @@
+version: '3.1'
+
+services:
+  openmetrics-exporter:
+    image: last9.jfrog.io/last9-openmetrics-exporter-docker/openmetrics-exporter:latest
+    command: |
+      /app/l9watcher -a 'run openmetrics' -c /var/iox/json-maker.sh -d true -f 60 -v true
+    restart: always
+    env_file:
+      - openmetrics_exporter.env
+    ports:
+      - 9100:9100
+    volumes:
+      - ${PWD}/iox/json-maker.sh:/iox/json-maker.sh
+      - ${PWD}/iox:/iox
+      - ${HOME}/.aws/:/root/.aws/
+    networks:
+      - promnet
+
+  prometheus:
+    image: prom/prometheus:v2.32.0-beta.0
+    restart: always
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--enable-feature=agent'
+    ports:
+      - 9090:9090
+    depends_on:
+      - openmetrics-exporter
+    networks:
+      - promnet
+
+networks:
+  promnet:
+    driver: bridge
