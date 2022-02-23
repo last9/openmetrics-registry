@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: openmetrics-exporter
-        image: last9/openmetrics-exporter:latest
+        image: last9.jfrog.io/last9-openmetrics-exporter-docker/openmetrics-exporter:latest
         command: ["/app/l9watcher"]
         args: ["-a", "run openmetrics", "-c", "/var/iox/json-maker.sh", "-d", "true", "-f", "60", "-v", "true"]
         ports:
@@ -27,7 +27,7 @@ spec:
         envFrom:
         - secretRef:
             name: ome-env
-        imagePullPolicy: Never
+        imagePullPolicy: Always
       volumes:
       - name: exporters
         configMap:

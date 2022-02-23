@@ -1,3 +1,5 @@
+#!/bin/bash
+
 usage() {
   echo "Usage: $0
     [-d <directory path where hcls files are present>]
