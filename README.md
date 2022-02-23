@@ -52,6 +52,50 @@ Please refer the tables below to find the right module for system components you
 |                  | `gcp_cloudsql_physical` |
 
 
+## Quick start with Docker-compose
+- Create a new repository or local directory where you will be keeping your extended blocks for modules. 
+- Openmetrics-exporter needs json file with values of resource identifiers for each resource you want to observe. 
+- We have provided a sample script which generates this json file for `RDS` [here]().
+- Write a script, test if you are getting expected outcomes. You can find which resource identifier you need to use for every module [here](). 
+- Add your credentials and secrets in `openmetrics_exporter.env` file so docker-compose can use those. 
+- And that's it, we are ready to start. 
+- Now run, 
+```
+docker-compose up openmetrics-exporter
+```
+- Now Plug these metrics into any Openmetrics receiver like Prometheus and Done!
+- We have also provided a Prometheus block in `docker-compose` file in case you want to start Prometheus.
+
+## Get started with Kubernetes
+- There are two files in Kubernetes directory, `ome.yaml` and a configmap generator script. 
+- All of your [hcl extended blocks]() should be in the openmetrics-exporter directory along with kubernetes directory. 
+- You can generate `ome_data.yaml` that has configmaps for all the extended blocks using:
+```
+cd k8s
+./generate_ome_data.sh -d ../openmetrics-exporter > ome_data.yaml
+```
+- Create `ome_secrets.yml` which will contain all the environment variables. 
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ome-env
+type: Opaque
+stringData:
+  # AWS_DEFAULT_REGION: ap-south-1
+  # AWS_ACCESS_KEY_ID: xxxxxx
+  # AWS_SECRET_ACCESS_KEY: xxxxxxxxxxxxx
+```
+- Create the namespace for openmetrics-exporter using
+```
+Kubectl create ns ome
+```
+- Deploy openmetrics-exporter on Kubernetes cluster using
+```
+Kubectl apply -f ome_secrets.yaml -f ome_data.yaml -f ome.yaml -n ome
+```
+- Now Plug these metrics into any Openmetrics receiver like Prometheus and Done!
+
 ## Learn more about Openmetrics-exporter
 - [What is Openmetrics-exporter?](https://last9.notion.site/openmetrics-exporter-06e2b2f0ae404968b4238c32257acc0c)
 
