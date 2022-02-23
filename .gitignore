@@ -29,4 +29,3 @@ override.tf.json
 # example: *tfplan*
 
 examples/*/*.json
-sample/k8s/ome-secret.yaml
