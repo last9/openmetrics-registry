@@ -4,9 +4,7 @@ services:
   openmetrics-exporter:
     image: last9/openmetrics-exporter:latest
     command: |
-      /app/l9watcher -a 'run openmetrics' \
-      -c /scripts/json-maker.sh \
-      -d true -f 60 -v true
+      /app/l9watcher -a 'run openmetrics' -c /scripts/json-maker.sh -d true -f 60 -v true
     restart: always
     env_file:
       - openmetrics_exporter.env
