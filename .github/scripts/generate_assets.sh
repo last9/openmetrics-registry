@@ -17,8 +17,6 @@ git diff --name-only HEAD..$LATEST_RELEASE_TAG |\
   grep -v "^sample\/" | grep "\.hcl" |\
   awk '{
     a=$1; b=$1; path=$1
-    gsub("[[:punct:]]/", "", a);
-    gsub("[[:punct:]]/", "", path);
     gsub("/", "_", a)
     n=split($1, s, "/")
     gsub(s[n], "version.txt", b)
