@@ -1,0 +1,89 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 5s
+
+    scrape_configs:
+      - job_name: openmetrics-exporter
+        static_configs:
+          - targets: ["localhost:9100"]
+
+    # remote_write:
+    # - url: https://metrics.example.com
+    #   remote_timeout: 60s
+    #   queue_config:
+    #     capacity: 10000
+    #     max_samples_per_send: 3000
+    #     batch_send_deadline: 20s
+    #     min_shards: 4
+    #     max_shards: 200
+    #     min_backoff: 100ms
+    #     max_backoff: 10s
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ome-prometheus
+  labels:
+    app: ome-prometheus
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: ome-prometheus
+  template:
+    metadata:
+      labels:
+        app: ome-prometheus
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+    spec:
+      containers:
+      - name: openmetrics-exporter
+        image: last9.jfrog.io/last9-openmetrics-exporter-docker/openmetrics-exporter:latest
+        command: ["/app/l9watcher"]
+        args: ["-a", "run openmetrics", "-c", "/var/iox/json-maker.sh", "-d", "true", "-f", "60", "-v", "true"]
+        ports:
+        - containerPort: 9100
+        volumeMounts:
+        - name: exporters
+          mountPath: /iox
+        envFrom:
+        - secretRef:
+            name: ome-env
+        imagePullPolicy: Always
+
+      - name: prometheus
+        image: prom/prometheus:v2.32.0-beta.0
+        args:
+          - '--enable-feature=agent'
+          - '--config.file=/etc/prometheus/prometheus.yml'
+        ports:
+        - name: web
+          containerPort: 9090
+        volumeMounts:
+        - name: prometheus-config
+          mountPath: /etc/prometheus/
+      restartPolicy: Always
+
+      volumes:
+      - name: prometheus-config
+        configMap:
+          name: prometheus-config
+
+      - name: exporters
+        configMap:
+          name: exporters
