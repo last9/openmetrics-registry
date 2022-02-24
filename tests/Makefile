@@ -13,8 +13,8 @@ hclfmt:
 # TODO:
 # 	* Run the ./run_test.sh script before running make plan
 # 	* make sure that:
-# 		- GCP creds file path is set as the env variable GCP_CREDS_FILE
-# 		- And the AWS_PROFILE is sourced correctly
+# 		[] GCP creds file path is set as the env variable GCP_CREDS_FILE
+# 		[x] And the AWS_PROFILE is sourced correctly
 plan: load_last9_openmetrics_cli
 	/tmp/last9/openmetrics-exporter plan -d . --run-once -o csv
 
