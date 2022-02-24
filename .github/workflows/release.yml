@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Create a release
         id: create_tag
@@ -23,8 +25,10 @@ jobs:
           
       - name: Get HCL files to release
         id: find_files
+        env:
+          RELEASE_TYPE: "${{ contains(github.ref, 'release-') && 'major' || 'patch' }}"
         run: |
-          files=`.github/scripts/generate_assets.sh | xargs`
+          files=$(.github/scripts/generate_assets.sh $RELEASE_TYPE | xargs)
           echo "::set-output name=hcl_files::$files"
         
       - name: test
