@@ -71,6 +71,12 @@ docker-compose up openmetrics-exporter
 cd k8s
 ./generate_ome_data.sh -d ../openmetrics-exporter > ome_data.yaml
 ```
+- Add your credentials and secrets in `openmetrics_exporter.env` file. Now run:
+```
+kubectl create secret generic ome-env --from-env-file=openmetrics_exporter.env
+```
+or
+
 - Create `ome_secrets.yml` which will contain all the environment variables. 
 ```
 apiVersion: v1
@@ -91,7 +97,11 @@ Kubectl create ns ome
 ```
 Kubectl apply -f ome_secrets.yaml -f ome_data.yaml -f ome.yaml -n ome
 ```
-- Now Plug these metrics into any Openmetrics receiver like Prometheus and Done!
+- Now Plug these metrics into any Openmetrics receiver like Prometheus and Done! 
+
+```
+Note: We have also provided `ome_prometheus.yaml` which run prometheus agent as a sidecar container along with openmetrics-exporter. 
+```
 
 ## Learn more about Openmetrics-exporter
 - [What is Openmetrics-exporter?](https://last9.notion.site/openmetrics-exporter-06e2b2f0ae404968b4238c32257acc0c)
