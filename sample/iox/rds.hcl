@@ -1,5 +1,7 @@
 config cloudwatch "ap-south-1" {
   region     = "ap-south-1"
+  access_key = env("AWS_ACCESS_KEY")
+  secret_key = env("AWS_SECRET_KEY")
 }
 
 var rds {
