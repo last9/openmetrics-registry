@@ -91,11 +91,11 @@ scraper aws_elb_cloudwatch module {
   }
 
   vector "latency" {
-    dimension_label = "latency"
+    dimension_label = "stat"
 
-    source cloudwatch "p50" {
+    source cloudwatch "min" {
       query {
-        aggregator  = "p50"
+        aggregator  = "Minimum"
         namespace   = "AWS/ELB"
         metric_name = "Latency"
 
@@ -105,45 +105,21 @@ scraper aws_elb_cloudwatch module {
       }
     }
 
-    source cloudwatch "p75" {
-      query {
-        aggregator  = "p75"
-        namespace   = "AWS/ELB"
-        metric_name = "Latency"
-
-        dimensions = {
-          LoadBalancerName = resources.each.LoadBalancerName
-        }
-      }
-    }
-
-    source cloudwatch "p90" {
-      query {
-        aggregator  = "p90"
-        namespace   = "AWS/ELB"
-        metric_name = "Latency"
-
-        dimensions = {
-          LoadBalancerName = resources.each.LoadBalancerName
-        }
-      }
-    }
-
-    source cloudwatch "p99" {
-      query {
-        aggregator  = "p99"
-        namespace   = "AWS/ELB"
-        metric_name = "Latency"
-
-        dimensions = {
-          LoadBalancerName = resources.each.LoadBalancerName
-        }
-      }
-    }
-
-    source cloudwatch "p100" {
+    source cloudwatch "max" {
       query {
         aggregator  = "Maximum"
+        namespace   = "AWS/ELB"
+        metric_name = "Latency"
+
+        dimensions = {
+          LoadBalancerName = resources.each.LoadBalancerName
+        }
+      }
+    }
+
+    source cloudwatch "avg" {
+      query {
+        aggregator  = "Average"
         namespace   = "AWS/ELB"
         metric_name = "Latency"
 
