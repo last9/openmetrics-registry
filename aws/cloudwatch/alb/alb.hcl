@@ -59,6 +59,7 @@ scraper aws_alb_cloudwatch module {
     }
   }
 
+
   vector "response" {
     // Ideally we should record all individual status codes in this vector,
     // but becasue aws cloudwatch does not provide such granularity, we can
