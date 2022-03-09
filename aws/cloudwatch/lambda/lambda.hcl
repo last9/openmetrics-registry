@@ -19,22 +19,12 @@ scraper aws_lambda_cloudwatch module {
     }
   }
 
-  latency "latency_histo" {
-    source cloudwatch "throughput" {
-      query {
-        aggregator  = "Sum"
-        namespace   = "AWS/Lambda"
-        metric_name = "Invocations"
+  vector "latency" {
+    dimension_label = "stat"
 
-        dimensions = {
-          FunctionName = resources.each.FunctionName
-        }
-      }
-    }
-
-    source cloudwatch "p50" {
+    source cloudwatch "min" {
       query {
-        aggregator  = "p50"
+        aggregator  = "Minimum"
         namespace   = "AWS/Lambda"
         metric_name = "Duration"
 
@@ -44,9 +34,9 @@ scraper aws_lambda_cloudwatch module {
       }
     }
 
-    source cloudwatch "p75" {
+    source cloudwatch "max" {
       query {
-        aggregator  = "p75"
+        aggregator  = "Maximum"
         namespace   = "AWS/Lambda"
         metric_name = "Duration"
 
@@ -56,33 +46,9 @@ scraper aws_lambda_cloudwatch module {
       }
     }
 
-    source cloudwatch "p90" {
+    source cloudwatch "avg" {
       query {
-        aggregator  = "p90"
-        namespace   = "AWS/Lambda"
-        metric_name = "Duration"
-
-        dimensions = {
-          FunctionName = resources.each.FunctionName
-        }
-      }
-    }
-
-    source cloudwatch "p99" {
-      query {
-        aggregator  = "p99"
-        namespace   = "AWS/Lambda"
-        metric_name = "Duration"
-
-        dimensions = {
-          FunctionName = resources.each.FunctionName
-        }
-      }
-    }
-
-    source cloudwatch "p100" {
-      query {
-        aggregator  = "p100"
+        aggregator  = "Average"
         namespace   = "AWS/Lambda"
         metric_name = "Duration"
 

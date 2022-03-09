@@ -20,11 +20,11 @@ scraper aws_alb_cloudwatch module {
   }
 
   vector "latency" {
-    dimension_label = "latency"
+    dimension_label = "stat"
 
-    source cloudwatch "p50" {
+    source cloudwatch "min" {
       query {
-        aggregator  = "p50"
+        aggregator  = "Minimum"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 
@@ -34,45 +34,21 @@ scraper aws_alb_cloudwatch module {
       }
     }
 
-    source cloudwatch "p75" {
-      query {
-        aggregator  = "p75"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "TargetResponseTime"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-        }
-      }
-    }
-
-    source cloudwatch "p90" {
-      query {
-        aggregator  = "p90"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "TargetResponseTime"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-        }
-      }
-    }
-
-    source cloudwatch "p99" {
-      query {
-        aggregator  = "p99"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "TargetResponseTime"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-        }
-      }
-    }
-
-    source cloudwatch "p100" {
+    source cloudwatch "max" {
       query {
         aggregator  = "Maximum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+        }
+      }
+    }
+
+    source cloudwatch "avg" {
+      query {
+        aggregator  = "Average"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 
@@ -292,11 +268,11 @@ scraper aws_alb_target_group_cloudwatch module {
 
 
   vector "latency" {
-    dimension_label = "latency"
+    dimension_label = "stat"
 
-    source cloudwatch "p50" {
+    source cloudwatch "min" {
       query {
-        aggregator  = "p50"
+        aggregator  = "Minimum"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 
@@ -307,46 +283,7 @@ scraper aws_alb_target_group_cloudwatch module {
       }
     }
 
-    source cloudwatch "p75" {
-      query {
-        aggregator  = "p75"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "TargetResponseTime"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-          TargetGroup  = resources.each.TargetGroup
-        }
-      }
-    }
-
-    source cloudwatch "p90" {
-      query {
-        aggregator  = "p90"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "TargetResponseTime"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-          TargetGroup  = resources.each.TargetGroup
-        }
-      }
-    }
-
-    source cloudwatch "p99" {
-      query {
-        aggregator  = "p99"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "TargetResponseTime"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-          TargetGroup  = resources.each.TargetGroup
-        }
-      }
-    }
-
-    source cloudwatch "p100" {
+    source cloudwatch "max" {
       query {
         aggregator  = "Maximum"
         namespace   = "AWS/ApplicationELB"
@@ -358,6 +295,18 @@ scraper aws_alb_target_group_cloudwatch module {
         }
       }
     }
-  }
 
+    source cloudwatch "avg" {
+      query {
+        aggregator  = "Average"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup  = resources.each.TargetGroup
+        }
+      }
+    }
+  }
 }
