@@ -22,7 +22,7 @@ list_modules() {
     find aws/ gcp/ -name '*.hcl'
   else
     LATEST_RELEASE_TAG=$(git tag --list --sort creatordate | grep "module-\|release-" | tail -n2 | head -n1)
-    git diff --name-only HEAD..$LATEST_RELEASE_TAG | grep -v "^sample\/" | grep "\.hcl"
+    git diff --name-only HEAD..$LATEST_RELEASE_TAG | grep -v "^sample\/" | find aws/ gcp/ -name '*.hcl'
   fi
 }
 
