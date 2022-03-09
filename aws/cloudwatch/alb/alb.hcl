@@ -59,14 +59,18 @@ scraper aws_alb_cloudwatch module {
     }
   }
 
-  vector "failed_requests" {
-    dimension_label = "status_code"
 
-    source cloudwatch "500" {
+  vector "response" {
+    // Ideally we should record all individual status codes in this vector,
+    // but becasue aws cloudwatch does not provide such granularity, we can
+    // only differentiate between status code classes and their origin (lb or target)
+    dimension_label = "code"
+
+    source cloudwatch "2xx" {
       query {
         aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
-        metric_name = "HTTPCode_ELB_500_Count"
+        metric_name = "HTTPCode_Target_2XX_Count"
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
@@ -74,11 +78,13 @@ scraper aws_alb_cloudwatch module {
       }
     }
 
-    source cloudwatch "502" {
+    // 3xx originated at lb itself and returned to client, due to some
+    // rule at lb or target is not reachable.
+    source cloudwatch "3xx_lb" {
       query {
         aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
-        metric_name = "HTTPCode_ELB_502_Count"
+        metric_name = "HTTPCode_ELB_3XX_Count"
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
@@ -86,11 +92,12 @@ scraper aws_alb_cloudwatch module {
       }
     }
 
-    source cloudwatch "503" {
+    // 3xx retuned from target
+    source cloudwatch "3xx_target" {
       query {
         aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
-        metric_name = "HTTPCode_ELB_503_Count"
+        metric_name = "HTTPCode_Target_3XX_Count"
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
@@ -98,11 +105,47 @@ scraper aws_alb_cloudwatch module {
       }
     }
 
-    source cloudwatch "504" {
+    source cloudwatch "4xx_lb" {
       query {
         aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
-        metric_name = "HTTPCode_ELB_504_Count"
+        metric_name = "HTTPCode_ELB_4XX_Count"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+        }
+      }
+    }
+
+    source cloudwatch "4xx_target" {
+      query {
+        aggregator  = "Sum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "HTTPCode_Target_4XX_Count"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+        }
+      }
+    }
+
+    source cloudwatch "5xx_lb" {
+      query {
+        aggregator  = "Sum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "HTTPCode_ELB_5XX_Count"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+        }
+      }
+    }
+
+    source cloudwatch "5xx_target" {
+      query {
+        aggregator  = "Sum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "HTTPCode_Target_5XX_Count"
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
