@@ -3,7 +3,7 @@ scraper akamai_endpoint module {
   # Should be less than frequency
   timeout    = 30
   resolution = 60
-  frequency  = 180
+  frequency  = 60
   lag        = 0
 
 
