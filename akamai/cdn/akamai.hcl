@@ -1,9 +1,9 @@
 scraper akamai_endpoint module {
-  lookback = 1800
+  lookback = 1500
   # Should be less than frequency
   timeout    = 30
   resolution = 60
-  frequency  = 300
+  frequency  = 180
   lag        = 0
 
 
