@@ -5,14 +5,14 @@ services:
     container_name: openmetrics-exporter
     image: last9.jfrog.io/last9-openmetrics-exporter-docker/openmetrics-exporter:latest
     command: |
-      /app/l9watcher -a 'run openmetrics' -c /var/iox/json-maker.sh -d true -f 60 -v true
+      /app/l9watcher -a 'run openmetrics' -c /var/ome/json-maker.sh -d true -f 60 -v true
     restart: always
     env_file:
       - openmetrics_exporter.env
     ports:
       - 9100:9100
     volumes:
-      - ${PWD}/iox:/iox
+      - ${PWD}/ome:/ome
       - ${HOME}/.aws/:/root/.aws/
     networks:
       - omenet
