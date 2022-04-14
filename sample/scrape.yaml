@@ -1,0 +1,14 @@
+# Sample config used in the provided docker-compose.yaml to run vmagent along
+# with openmetrics-exporter and periodically scrape the metrics exposed on
+# "/metrics". The scraped metrics can be written to any prometheus compatible
+# storage backend
+
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: openmetrics-exporter
+    metrics_path: "/metrics"
+    static_configs:
+      - targets:
+        - "openmetrics-exporter:9100"
