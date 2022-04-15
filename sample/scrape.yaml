@@ -4,7 +4,7 @@
 # storage backend
 
 global:
-  scrape_interval: 15s
+  scrape_interval: 30s
 
 scrape_configs:
   - job_name: openmetrics-exporter
