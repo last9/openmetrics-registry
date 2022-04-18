@@ -2,7 +2,7 @@
 Modules to be used by Openmetrics-exporter, also known as OME.
 
 ## Learn more about Openmetrics-exporter
-[What is Openmetrics-exporter?](https://openmetrics-exporter.last9.io)
+[What is Openmetrics-exporter?](https://last9.io/openmetrics-exporter)
 
 ## What are Opemetrics-exporter modules?
 Openmetrics-exporter (OME) modules are the reusable building blocks that scrape the information for standard cloud components, in the above case AWS components. Modules help organize, encapsulate and re-use configurations along with maintaining consistency. 
