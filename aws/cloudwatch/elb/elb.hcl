@@ -5,7 +5,6 @@ scraper aws_elb_cloudwatch module {
   resolution = 60
   lag        = 120
 
-
   gauge "throughput" {
     source cloudwatch "throughput" {
       query {
@@ -93,9 +92,9 @@ scraper aws_elb_cloudwatch module {
   vector "latency" {
     dimension_label = "stat"
 
-    source cloudwatch "min" {
+    source cloudwatch "count" {
       query {
-        aggregator  = "Minimum"
+        aggregator  = "SampleCount"
         namespace   = "AWS/ELB"
         metric_name = "Latency"
 
@@ -105,21 +104,9 @@ scraper aws_elb_cloudwatch module {
       }
     }
 
-    source cloudwatch "max" {
+    source cloudwatch "sum" {
       query {
-        aggregator  = "Maximum"
-        namespace   = "AWS/ELB"
-        metric_name = "Latency"
-
-        dimensions = {
-          LoadBalancerName = resources.each.LoadBalancerName
-        }
-      }
-    }
-
-    source cloudwatch "avg" {
-      query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/ELB"
         metric_name = "Latency"
 

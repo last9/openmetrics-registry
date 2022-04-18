@@ -20,24 +20,12 @@ scraper aws_apigateway_cloudwatch module {
     }
   }
 
-  vector latency {
+  vector "latency" {
     dimension_label = "stat"
 
-    source cloudwatch "min" {
+    source cloudwatch "count" {
       query {
-        aggregator  = "Minimum"
-        namespace   = "AWS/ApiGateway"
-        metric_name = "Latency"
-
-        dimensions = {
-          ApiName = resources.each.ApiName
-          Stage   = resources.each.Stage
-        }
-      }
-    }
-    source cloudwatch "max" {
-      query {
-        aggregator  = "Maximum"
+        aggregator  = "SampleCount"
         namespace   = "AWS/ApiGateway"
         metric_name = "Latency"
 
@@ -48,9 +36,9 @@ scraper aws_apigateway_cloudwatch module {
       }
     }
 
-    source cloudwatch "avg" {
+    source cloudwatch "sum" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/ApiGateway"
         metric_name = "Latency"
 

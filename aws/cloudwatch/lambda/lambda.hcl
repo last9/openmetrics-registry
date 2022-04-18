@@ -22,9 +22,9 @@ scraper aws_lambda_cloudwatch module {
   vector "latency" {
     dimension_label = "stat"
 
-    source cloudwatch "min" {
+    source cloudwatch "count" {
       query {
-        aggregator  = "Minimum"
+        aggregator  = "SampleCount"
         namespace   = "AWS/Lambda"
         metric_name = "Duration"
 
@@ -34,21 +34,9 @@ scraper aws_lambda_cloudwatch module {
       }
     }
 
-    source cloudwatch "max" {
+    source cloudwatch "sum" {
       query {
-        aggregator  = "Maximum"
-        namespace   = "AWS/Lambda"
-        metric_name = "Duration"
-
-        dimensions = {
-          FunctionName = resources.each.FunctionName
-        }
-      }
-    }
-
-    source cloudwatch "avg" {
-      query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/Lambda"
         metric_name = "Duration"
 
