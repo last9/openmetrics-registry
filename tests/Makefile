@@ -1,7 +1,7 @@
 .ONESHELL:
 SHELL = /bin/bash
 
-BINARY_DOWNLOAD_URL=https://last9.jfrog.io/artifactory/last9-openmetrics-exporter/release-v0.2/openmetrics-exporter_release-v0.2_linux_amd64
+BINARY_DOWNLOAD_URL=https://last9.jfrog.io/artifactory/last9-openmetrics-exporter/release-v0.7/openmetrics-exporter_release-v0.2_linux_amd64
 
 load_last9_openmetrics_cli:
 	which /tmp/last9/openmetrics-exporter || (mkdir -p /tmp/last9; cd /tmp/last9; wget $(BINARY_DOWNLOAD_URL) -O openmetrics-exporter; chmod +x openmetrics-exporter)
