@@ -14,8 +14,6 @@ extends aws_alb_cloudwatch "alb_ap-south-1" {
   }
 }
 
-
-
 extends aws_aurora_instance_logical_cloudwatch "aws_aurora_instance_logical_cloudwatch_test" {
   module_uri = "../aws/cloudwatch/aurora/aurora.hcl"
   resources  = <<-EOF
@@ -45,7 +43,7 @@ extends aws_dynamodb_table_operation_cloudwatch "aws_dynamodb_table_operation_cl
     default = "default"
   }
 }
-#
+
 extends aws_dynamodb_table_cloudwatch "aws_dynamodb_table_cloudwatch_test" {
   module_uri = "../aws/cloudwatch/dynamodb/dynamodb.hcl"
   resources  = <<-EOF
