@@ -53,7 +53,7 @@ scraper aws_dynamodb_table_operation_cloudwatch module {
   gauge "latency" {
     source cloudwatch "latency" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/DynamoDB"
         metric_name = "SuccessfulRequestLatency"
 

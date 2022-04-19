@@ -23,7 +23,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
   gauge "read_throughput" {
     source cloudwatch "read_throughput" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/RDS"
         metric_name = "ReadThroughput"
 
@@ -38,7 +38,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
   gauge "read_latency" {
     source cloudwatch "read_latency" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "ReadLatency"
 
@@ -52,7 +52,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
   gauge "write_throughput" {
     source cloudwatch "write_throughput" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/RDS"
         metric_name = "WriteThroughput"
 
@@ -66,7 +66,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
   gauge "write_latency" {
     source cloudwatch "write_latency" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "WriteLatency"
 
@@ -80,7 +80,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
   gauge "update_throughput" {
     source cloudwatch "update_throughput" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/RDS"
         metric_name = "UpdateThroughput"
 
@@ -94,7 +94,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
   gauge "update_latency" {
     source cloudwatch "update_latency" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "UpdateLatency"
 
@@ -108,7 +108,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
   gauge "delete_throughput" {
     source cloudwatch "delete_throughput" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/RDS"
         metric_name = "DeleteThroughput"
 
@@ -122,7 +122,7 @@ scraper aws_aurora_instance_logical_cloudwatch module {
   gauge "delete_latency" {
     source cloudwatch "delete_latency" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "DeleteLatency"
 
@@ -159,7 +159,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
   gauge "network_in" {
     source cloudwatch "network_in" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/RDS"
         metric_name = "NetworkReceiveThroughput"
 
@@ -173,7 +173,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
   gauge "network_out" {
     source cloudwatch "network_out" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/RDS"
         metric_name = "NetworkTransmitThroughput"
 
@@ -187,7 +187,7 @@ scraper aws_aurora_instance_physical_cloudwatch module {
   gauge "cpu" {
     source cloudwatch "cpu" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "CPUUtilization"
 

@@ -198,7 +198,7 @@ scraper aws_elasticache_cluster_cloudwatch module {
   gauge "cpu_used" {
     source cloudwatch "EngineCPUUtilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/ElastiCache"
         metric_name = "EngineCPUUtilization"
 
@@ -213,7 +213,7 @@ scraper aws_elasticache_cluster_cloudwatch module {
   gauge "memory_used" {
     source cloudwatch "DatabaseMemoryUsagePercentage" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/ElastiCache"
         metric_name = "DatabaseMemoryUsagePercentage"
 

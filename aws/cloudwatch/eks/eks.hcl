@@ -34,7 +34,7 @@ scraper aws_eks_cluster_cloudwatch module {
   gauge "node_cpu_utilization" {
     source cloudwatch "node_cpu_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "node_cpu_utilization"
         dimensions = {
@@ -47,7 +47,7 @@ scraper aws_eks_cluster_cloudwatch module {
   gauge "node_memory_utilization" {
     source cloudwatch "node_memory_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "node_memory_utilization"
         dimensions = {
@@ -60,7 +60,7 @@ scraper aws_eks_cluster_cloudwatch module {
   gauge "node_filesystem_utilization" {
     source cloudwatch "node_filesystem_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "node_filesystem_utilization"
         dimensions = {
@@ -81,7 +81,7 @@ scraper aws_eks_service_cloudwatch module {
   gauge "pod_cpu_utilization" {
     source cloudwatch "pod_cpu_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "pod_cpu_utilization"
         dimensions = {
@@ -96,7 +96,7 @@ scraper aws_eks_service_cloudwatch module {
   gauge "pod_memory_utilization" {
     source cloudwatch "pod_memory_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "pod_memory_utilization"
         dimensions = {
@@ -111,7 +111,7 @@ scraper aws_eks_service_cloudwatch module {
   gauge "pod_cpu_utilization_over_pod_limit" {
     source cloudwatch "pod_cpu_utilization_over_pod_limit" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "pod_cpu_utilization_over_pod_limit"
         dimensions = {
@@ -126,7 +126,7 @@ scraper aws_eks_service_cloudwatch module {
   gauge "pod_memory_utilization_over_pod_limit" {
     source cloudwatch "pod_memory_utilization_over_pod_limit" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "pod_memory_utilization_over_pod_limit"
         dimensions = {
@@ -141,7 +141,7 @@ scraper aws_eks_service_cloudwatch module {
   gauge "pod_network_rx_bytes" {
     source cloudwatch "pod_network_rx_bytes" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "ContainerInsights"
         metric_name = "pod_network_rx_bytes"
         dimensions = {
@@ -156,7 +156,7 @@ scraper aws_eks_service_cloudwatch module {
   gauge "pod_network_tx_bytes" {
     source cloudwatch "pod_network_tx_bytes" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "ContainerInsights"
         metric_name = "pod_network_tx_bytes"
         dimensions = {
@@ -194,7 +194,7 @@ scraper aws_eks_pod_cloudwatch module {
   gauge "pod_cpu_utilization" {
     source cloudwatch "pod_cpu_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "pod_cpu_utilization"
         dimensions = {
@@ -209,7 +209,7 @@ scraper aws_eks_pod_cloudwatch module {
   gauge "pod_memory_utilization" {
     source cloudwatch "pod_memory_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "pod_memory_utilization"
         dimensions = {
@@ -224,7 +224,7 @@ scraper aws_eks_pod_cloudwatch module {
   gauge "pod_cpu_utilization_over_pod_limit" {
     source cloudwatch "pod_cpu_utilization_over_pod_limit" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "pod_cpu_utilization_over_pod_limit"
         dimensions = {
@@ -239,7 +239,7 @@ scraper aws_eks_pod_cloudwatch module {
   gauge "pod_memory_utilization_over_pod_limit" {
     source cloudwatch "pod_memory_utilization_over_pod_limit" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "pod_memory_utilization_over_pod_limit"
         dimensions = {
@@ -254,7 +254,7 @@ scraper aws_eks_pod_cloudwatch module {
   gauge "pod_network_rx_bytes" {
     source cloudwatch "pod_network_rx_bytes" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "ContainerInsights"
         metric_name = "pod_network_rx_bytes"
         dimensions = {
@@ -269,7 +269,7 @@ scraper aws_eks_pod_cloudwatch module {
   gauge "pod_network_tx_bytes" {
     source cloudwatch "pod_network_rx_bytes" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "ContainerInsights"
         metric_name = "pod_network_tx_bytes"
         dimensions = {
@@ -307,7 +307,7 @@ scraper aws_eks_node_cloudwatch module {
   gauge "node_cpu_utilization" {
     source cloudwatch "node_cpu_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "node_cpu_utilization"
         dimensions = {
@@ -322,7 +322,7 @@ scraper aws_eks_node_cloudwatch module {
   gauge "node_filesystem_utilization" {
     source cloudwatch "node_filesystem_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "node_filesystem_utilization"
         dimensions = {
@@ -337,7 +337,7 @@ scraper aws_eks_node_cloudwatch module {
   gauge "node_memory_utilization" {
     source cloudwatch "node_memory_utilization" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "ContainerInsights"
         metric_name = "node_memory_utilization"
         dimensions = {

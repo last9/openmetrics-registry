@@ -22,7 +22,7 @@ scraper aws_rds_cloudwatch module {
   gauge "write_iops" {
     source cloudwatch "write_iops" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "WriteIOPS"
 
@@ -36,7 +36,7 @@ scraper aws_rds_cloudwatch module {
   gauge "read_iops" {
     source cloudwatch "read_iops" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "ReadIOPS"
 
@@ -50,7 +50,7 @@ scraper aws_rds_cloudwatch module {
   gauge "read_latency" {
     source cloudwatch "read_latency" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "ReadLatency"
 
@@ -64,7 +64,7 @@ scraper aws_rds_cloudwatch module {
   gauge "write_latency" {
     source cloudwatch "wrtie_latency" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "WriteLatency"
 
@@ -78,7 +78,7 @@ scraper aws_rds_cloudwatch module {
   gauge "network_in" {
     source cloudwatch "network_in" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/RDS"
         metric_name = "NetworkReceiveThroughput"
 
@@ -92,7 +92,7 @@ scraper aws_rds_cloudwatch module {
   gauge "network_out" {
     source cloudwatch "network_out" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/RDS"
         metric_name = "NetworkTransmitThroughput"
 
@@ -106,7 +106,7 @@ scraper aws_rds_cloudwatch module {
   gauge "cpu" {
     source cloudwatch "cpu" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/RDS"
         metric_name = "CPUUtilization"
 

@@ -53,7 +53,7 @@ scraper aws_apigateway_cloudwatch module {
   gauge "integration_latency" {
     source cloudwatch "integration_latency" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/ApiGateway"
         metric_name = "IntegrationLatency"
 

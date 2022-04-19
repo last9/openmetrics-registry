@@ -9,7 +9,7 @@ scraper aws_cloudfront_cloudwatch module {
   gauge "status_5xx" {
     source cloudwatch "5xx" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/CloudFront"
         metric_name = "5xxErrorRate"
         dimensions = {
@@ -23,7 +23,7 @@ scraper aws_cloudfront_cloudwatch module {
   gauge "status_4xx" {
     source cloudwatch "4xx" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/CloudFront"
         metric_name = "4xxErrorRate"
         dimensions = {
