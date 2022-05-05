@@ -32,7 +32,7 @@ scraper aws_elb_cloudstream module {
   gauge "status_1xx" {
     source promql "status_1xx" {
       query = "sum by (LoadBalancerName) (amazonaws_com_AWS_ELB_HTTPCode_Backend_1XX_sum{LoadBalancerName='${resources.each.LoadBalancerName}', AvailabilityZone=''})"
-    } 
+    }
   }
 
   gauge "status_2xx" {
@@ -44,7 +44,7 @@ scraper aws_elb_cloudstream module {
   gauge "status_3xx" {
     source promql "status_3xx" {
       query = "sum by (LoadBalancerName) (amazonaws_com_AWS_ELB_HTTPCode_Backend_3XX_sum{LoadBalancerName='${resources.each.LoadBalancerName}', AvailabilityZone=''})"
-    } 
+    }
   }
 
   gauge "status_4xx" {
