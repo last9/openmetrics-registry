@@ -84,7 +84,7 @@ scraper aws_alb_cloudstream module {
   }
 
   gauge "latency_avg" {
-    source prometheus "latency_avg" { lb_5xx
+    source prometheus "latency_avg" {
       query = "sum by (LoadBalancer) (amazonaws_com_AWS_ApplicationELB_TargetResponseTime_sum{LoadBalancer=~'$input{LoadBalancer}',AvailabilityZone='',TargetGroup=''}) / sum by (LoadBalancer) (amazonaws_com_AWS_ApplicationELB_TargetResponseTime_count{LoadBalancer='$input{LoadBalancer}',AvailabilityZone='',TargetGroup=''})"
     }
   }
