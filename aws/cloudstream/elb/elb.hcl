@@ -83,10 +83,15 @@ scraper aws_elb_cloudstream module {
     }
   }
 
-  gauge "latency_avg" {
-    source promql "latency_avg" {
-      query = "sum by (LoadBalancerName) (amazonaws_com_AWS_ELB_Latency_sum{LoadBalancerName='${resources.each.LoadBalancerName}', AvailabilityZone=''}) / sum by (LoadBalancerName) (amazonaws_com_AWS_ELB_Latency_count{LoadBalancerName='${resources.each.LoadBalancerName}', AvailabilityZone=''})"
+  gauge "latency_sum" {
+    source promql "latency_sum" {
+      query = "sum by (LoadBalancerName) (amazonaws_com_AWS_ELB_Latency_sum{LoadBalancerName='${resources.each.LoadBalancerName}', AvailabilityZone=''})"
     }
   }
 
+  gauge "latency_count" {
+    source promql "latency_count" {
+      query = "sum by (LoadBalancerName) (amazonaws_com_AWS_ELB_Latency_count{LoadBalancerName='${resources.each.LoadBalancerName}', AvailabilityZone=''})"
+    }
+  }
 }
