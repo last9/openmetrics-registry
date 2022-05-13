@@ -41,7 +41,7 @@ scraper aws_msk_topic_per_broker_cloudwatch module {
   gauge "messages_in" {
     source cloudwatch "messages_in" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/Kafka"
         metric_name = "MessagesInPerSec"
 
@@ -57,7 +57,7 @@ scraper aws_msk_topic_per_broker_cloudwatch module {
   gauge "fetch_msg_conversions" {
     source cloudwatch "fetch_msg_conversions" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/Kafka"
         metric_name = "FetchMessageConversionsPerSec"
 
@@ -73,7 +73,7 @@ scraper aws_msk_topic_per_broker_cloudwatch module {
   gauge "produce_msg_conversions" {
     source cloudwatch "produce_msg_conversions" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/Kafka"
         metric_name = "ProduceMessageConversionsPerSec"
 
@@ -218,7 +218,7 @@ scraper aws_msk_broker_cloudwatch module {
   gauge "messages_in" {
     source cloudwatch "messages_in" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/Kafka"
         metric_name = "MessagesInPerSec"
 
@@ -248,7 +248,7 @@ scraper aws_msk_broker_cloudwatch module {
   gauge "produce_time_ms_mean" {
     source cloudwatch "produce_time_ms_mean" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/Kafka"
         metric_name = "ProduceTotalTimeMsMean"
 
@@ -278,7 +278,7 @@ scraper aws_msk_broker_cloudwatch module {
   gauge "request_time" {
     source cloudwatch "request_time" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/Kafka"
         metric_name = "RequestTime"
 
@@ -293,7 +293,7 @@ scraper aws_msk_broker_cloudwatch module {
   gauge "produce_msg_conversions" {
     source cloudwatch "produce_msg_conversions" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/Kafka"
         metric_name = "ProduceMessageConversionsPerSec"
 
@@ -308,7 +308,7 @@ scraper aws_msk_broker_cloudwatch module {
   gauge "fetch_msg_conversions" {
     source cloudwatch "fetch_msg_conversions" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/Kafka"
         metric_name = "FetchMessageConversionsPerSec"
 
@@ -323,7 +323,7 @@ scraper aws_msk_broker_cloudwatch module {
   gauge "fetch_time_ms_mean" {
     source cloudwatch "fetch_time_ms_mean" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/Kafka"
         metric_name = "FetchConsumerTotalTimeMsMean"
 

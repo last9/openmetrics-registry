@@ -8,7 +8,7 @@ scraper aws_ec2_cloudwatch module {
   gauge "cpu" {
     source cloudwatch "cpu" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/EC2"
         metric_name = "CPUUtilization"
 

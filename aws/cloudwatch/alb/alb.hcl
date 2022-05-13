@@ -22,9 +22,9 @@ scraper aws_alb_cloudwatch module {
   vector "latency" {
     dimension_label = "stat"
 
-    source cloudwatch "min" {
+    source cloudwatch "count" {
       query {
-        aggregator  = "Minimum"
+        aggregator  = "SampleCount"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 
@@ -34,21 +34,9 @@ scraper aws_alb_cloudwatch module {
       }
     }
 
-    source cloudwatch "max" {
+    source cloudwatch "sum" {
       query {
-        aggregator  = "Maximum"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "TargetResponseTime"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-        }
-      }
-    }
-
-    source cloudwatch "avg" {
-      query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 
@@ -58,7 +46,6 @@ scraper aws_alb_cloudwatch module {
       }
     }
   }
-
 
   vector "response" {
     // Ideally we should record all individual status codes in this vector,
@@ -313,9 +300,9 @@ scraper aws_alb_target_group_cloudwatch module {
   vector "latency" {
     dimension_label = "stat"
 
-    source cloudwatch "min" {
+    source cloudwatch "count" {
       query {
-        aggregator  = "Minimum"
+        aggregator  = "SampleCount"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 
@@ -326,22 +313,9 @@ scraper aws_alb_target_group_cloudwatch module {
       }
     }
 
-    source cloudwatch "max" {
+    source cloudwatch "sum" {
       query {
-        aggregator  = "Maximum"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "TargetResponseTime"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-          TargetGroup  = resources.each.TargetGroup
-        }
-      }
-    }
-
-    source cloudwatch "avg" {
-      query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 

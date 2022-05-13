@@ -84,7 +84,7 @@ scraper aws_dax_cloudwatch module {
   gauge "cache_memory" {
     source cloudwatch "memory" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/DAX"
         metric_name = "CacheMemoryUtilization"
 
@@ -99,7 +99,7 @@ scraper aws_dax_cloudwatch module {
   gauge "cpu" {
     source cloudwatch "cpu" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/DAX"
         metric_name = "CPUUtilization"
 

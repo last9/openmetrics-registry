@@ -115,7 +115,7 @@ scraper aws_elasticsearch_cloudwatch module {
   gauge "cpu" {
     source cloudwatch "cpu" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/ES"
         metric_name = "CPUUtilization"
 
@@ -231,7 +231,7 @@ scraper aws_elasticsearch_master_cloudwatch module {
   gauge "cpu" {
     source cloudwatch "cpu" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Maximum"
         namespace   = "AWS/ES"
         metric_name = "MasterCPUUtilization"
 
