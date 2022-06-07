@@ -44,6 +44,7 @@ jobs:
           files: >
             ${{ steps.find_files.outputs.hcl_files }}
             docker-compose.yaml:sample/docker-compose.yaml
+            scrape.yaml:sample/scrape.yaml
             generate_ome_data.sh:sample/k8s/generate_ome_data.sh
             ome.yaml:sample/k8s/ome.yaml
-            ome-prometheus.yaml:sample/k8s/ome-prometheus.yaml
+            ome-vmagent.yaml:sample/k8s/ome-vmagent.yaml
