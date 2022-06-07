@@ -41,7 +41,7 @@ scraper aws_dax_cloudstream module {
 
   gauge "query_miss" {
 
-    source promql "memory" {
+    source promql "query_miss" {
       query = "sum by (ClusterId, NodeId) (amazonaws_com_AWS_DAX_QueryCacheMisses_sum{ClusterId=~'${join("|", resources.all.ClusterId)}',NodeId!=''})"
 
     }
