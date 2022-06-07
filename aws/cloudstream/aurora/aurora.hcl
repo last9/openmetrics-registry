@@ -11,63 +11,45 @@ scraper aws_aurora_cloudstream module {
     }
   }
 
-  gauge "read_throughput" {
-    source promql "read_throughput" {
-      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_ReadThroughput{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}', quantile='1'})"
+  gauge "ebs_io_balance" {
+    source promql "ebs_io_balance" {
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_EBSIOBalance_{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}', quantile='0'})"
     }
   }
 
-  gauge "write_throughput" {
-    source promql "write_throughput" {
-      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_WriteThroughput{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}', quantile='1'})"
+  gauge "ebs_byte_balance" {
+    source promql "ebs_byte_balance" {
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_EBSByteBalance_{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}', quantile='0'})"
     }
   }
 
-  gauge "update_throughput" {
-    source promql "update_throughput" {
-      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_UpdateThroughput{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}', quantile='1'})"
-    }
-  }
-
-  gauge "delete_throughput" {
-    source promql "delete_throughput" {
-      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_DeleteThroughput{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}', quantile='1'})"
+  gauge "burst_balance" {
+    source promql "burst_balance" {
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_BurstBalance{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}', quantile='0'})"
     }
   }
 
   gauge "read_latency" {
     source promql "read_latency" {
-      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_ReadLatency{quantile='1', DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_ReadLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_ReadLatency_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_ReadLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
     }
   }
 
   gauge "write_latency" {
     source promql "write_latency" {
-      query = "sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency{quantile='1', DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
-    }
-  }
-
-  gauge "update_latency" {
-    source promql "update_latency" {
-      query = "sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_UpdateLatency{quantile='1', DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
-    }
-  }
-
-  gauge "delete_latency" {
-    source promql "delete_latency" {
-      query = "sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_DeleteLatency{quantile='1', DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+      query = "sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
     }
   }
 
   gauge "cpu" {
     source promql "cpu" {
-      query = "avg by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_CPUUtilization{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_CPUUtilization_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+      query = "avg by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_CPUUtilization_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_CPUUtilization_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
     }
   }
 
-  gauge "deadlocks" {
-    source promql "deadlocks" {
-      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_Deadlocks{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}', quantile='0'})"
+  gauge "cpu_balance" {
+    source promql "cpu_balance" {
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_CPUCreditBalance{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}', quantile='0'})"
     }
   }
 
