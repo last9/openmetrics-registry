@@ -1,28 +1,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: prometheus-config
+  name: vmagent-config
 data:
-  prometheus.yml: |
+  scrape.yaml: |
     global:
-      scrape_interval: 5s
+      scrape_interval: 30s
 
     scrape_configs:
       - job_name: openmetrics-exporter
         static_configs:
           - targets: ["localhost:9100"]
-
-    # remote_write:
-    # - url: https://metrics.example.com
-    #   remote_timeout: 60s
-    #   queue_config:
-    #     capacity: 10000
-    #     max_samples_per_send: 3000
-    #     batch_send_deadline: 20s
-    #     min_shards: 4
-    #     max_shards: 200
-    #     min_backoff: 100ms
-    #     max_backoff: 10s
 
 ---
 
@@ -30,9 +18,9 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ome-prometheus
+  name: ome-vmagent
   labels:
-    app: ome-prometheus
+    app: ome-vmagent
 spec:
   replicas: 1
   strategy:
@@ -42,11 +30,11 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: ome-prometheus
+      app: ome-vmagent
   template:
     metadata:
       labels:
-        app: ome-prometheus
+        app: ome-vmagent
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9090"
@@ -55,34 +43,34 @@ spec:
       - name: openmetrics-exporter
         image: last9.jfrog.io/last9-openmetrics-exporter-docker/openmetrics-exporter:latest
         command: ["/app/l9watcher"]
-        args: ["-a", "run openmetrics", "-c", "/var/iox/json-maker.sh", "-d", "true", "-f", "60", "-v", "true"]
+        args: ["-a", "run openmetrics", "-c", "/var/ome/json-maker.sh", "-d", "true", "-f", "60", "-v", "true"]
         ports:
         - containerPort: 9100
         volumeMounts:
         - name: exporters
-          mountPath: /iox
+          mountPath: /ome
         envFrom:
         - secretRef:
             name: ome-env
         imagePullPolicy: Always
 
-      - name: prometheus
-        image: prom/prometheus:v2.32.0-beta.0
+      - name: vmagent
+        image: victoriametrics/vmagent:v1.76.1
         args:
-          - '--enable-feature=agent'
-          - '--config.file=/etc/prometheus/prometheus.yml'
+          - "--promscrape.config=/etc/vmagent/scrape.yaml"
+          # - "--remoteWrite.url=https://<remote write reciever>/api/v1/write"
         ports:
         - name: web
           containerPort: 9090
         volumeMounts:
-        - name: prometheus-config
-          mountPath: /etc/prometheus/
+        - name: vmagent-config
+          mountPath: /etc/vmagent/
       restartPolicy: Always
 
       volumes:
-      - name: prometheus-config
+      - name: vmagent-config
         configMap:
-          name: prometheus-config
+          name: vmagent-config
 
       - name: exporters
         configMap:

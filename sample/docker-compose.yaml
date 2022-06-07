@@ -2,36 +2,37 @@ version: '3.1'
 
 services:
   openmetrics-exporter:
+    container_name: openmetrics-exporter
     image: last9.jfrog.io/last9-openmetrics-exporter-docker/openmetrics-exporter:latest
     command: |
-      /app/l9watcher -a 'run openmetrics' -c /var/iox/json-maker.sh -d true -f 60 -v true
+      /app/l9watcher -a 'run openmetrics' -c /var/ome/json-maker.sh -d true -f 60 -v true
     restart: always
     env_file:
       - openmetrics_exporter.env
     ports:
       - 9100:9100
     volumes:
-      - ${PWD}/iox/json-maker.sh:/iox/json-maker.sh
-      - ${PWD}/iox:/iox
+      - ${PWD}/ome:/ome
       - ${HOME}/.aws/:/root/.aws/
     networks:
-      - promnet
+      - omenet
 
-  prometheus:
-    image: prom/prometheus:v2.32.0-beta.0
+  vmagent:
+    container_name: vmagent
+    image: victoriametrics/vmagent:v1.76.1
     restart: always
-    volumes:
-      - ./prometheus/:/etc/prometheus/
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yaml'
-      - '--enable-feature=agent'
-    ports:
-      - 9090:9090
     depends_on:
       - openmetrics-exporter
+    ports:
+      - 8429:8429
+    volumes:
+      - ${PWD}/scrape.yaml:/etc/vmagent/scrape.yaml
+    command:
+      - "--promscrape.config=/etc/vmagent/scrape.yaml"
+      # - "--remoteWrite.url=https://<remote write reciever>/api/v1/write"
     networks:
-      - promnet
+      - omenet
 
 networks:
-  promnet:
+  omenet:
     driver: bridge
