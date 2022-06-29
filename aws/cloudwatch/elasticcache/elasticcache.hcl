@@ -111,9 +111,7 @@ scraper aws_elasticache_redis_cloudwatch module {
     }
   }
 
-  vector "latency" {
-    dimension_label = "stat"
-
+  gauge "latency_min" {
     source cloudwatch "min" {
       query {
         aggregator  = "Minimum"
@@ -126,23 +124,11 @@ scraper aws_elasticache_redis_cloudwatch module {
         }
       }
     }
-
+  }
+  gauge "latency_max" {
     source cloudwatch "max" {
       query {
         aggregator  = "Maximum"
-        namespace   = "AWS/ElastiCache"
-        metric_name = "SetTypeCmdsLatency"
-
-        dimensions = {
-          CacheClusterId = resources.each.CacheClusterId
-          CacheNodeId    = "0001"
-        }
-      }
-    }
-
-    source cloudwatch "avg" {
-      query {
-        aggregator  = "Average"
         namespace   = "AWS/ElastiCache"
         metric_name = "SetTypeCmdsLatency"
 

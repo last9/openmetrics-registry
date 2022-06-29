@@ -19,10 +19,9 @@ scraper aws_alb_cloudwatch module {
     }
   }
 
-  vector "latency" {
-    dimension_label = "stat"
 
-    source cloudwatch "min" {
+  gauge "latency_min" {
+    source cloudwatch "latency_min" {
       query {
         aggregator  = "Minimum"
         namespace   = "AWS/ApplicationELB"
@@ -33,8 +32,9 @@ scraper aws_alb_cloudwatch module {
         }
       }
     }
-
-    source cloudwatch "max" {
+  }
+  gauge "latency_max" {
+    source cloudwatch "latency_max" {
       query {
         aggregator  = "Maximum"
         namespace   = "AWS/ApplicationELB"
@@ -45,10 +45,11 @@ scraper aws_alb_cloudwatch module {
         }
       }
     }
-
-    source cloudwatch "avg" {
+  }
+  gauge "latency_sum" {
+    source cloudwatch "latency_sum" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 
@@ -58,15 +59,21 @@ scraper aws_alb_cloudwatch module {
       }
     }
   }
+  gauge "latency_count" {
+    source cloudwatch "latency_count" {
+      query {
+        aggregator  = "SampleCount"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
 
-
-  vector "response" {
-    // Ideally we should record all individual status codes in this vector,
-    // but becasue aws cloudwatch does not provide such granularity, we can
-    // only differentiate between status code classes and their origin (lb or target)
-    dimension_label = "code"
-
-    source cloudwatch "2xx" {
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+        }
+      }
+    }
+  }
+  gauge "status_2xx" {
+    source cloudwatch "status_2xx" {
       query {
         aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
@@ -77,23 +84,9 @@ scraper aws_alb_cloudwatch module {
         }
       }
     }
-
-    // 3xx originated at lb itself and returned to client, due to some
-    // rule at lb or target is not reachable.
-    source cloudwatch "3xx_lb" {
-      query {
-        aggregator  = "Sum"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "HTTPCode_ELB_3XX_Count"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-        }
-      }
-    }
-
-    // 3xx retuned from target
-    source cloudwatch "3xx_target" {
+  }
+  gauge "status_3xx" {
+    source cloudwatch "status_3xx" {
       query {
         aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
@@ -104,20 +97,9 @@ scraper aws_alb_cloudwatch module {
         }
       }
     }
-
-    source cloudwatch "4xx_lb" {
-      query {
-        aggregator  = "Sum"
-        namespace   = "AWS/ApplicationELB"
-        metric_name = "HTTPCode_ELB_4XX_Count"
-
-        dimensions = {
-          LoadBalancer = resources.each.LoadBalancer
-        }
-      }
-    }
-
-    source cloudwatch "4xx_target" {
+  }
+  gauge "status_4xx" {
+    source cloudwatch "status_4xx" {
       query {
         aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
@@ -128,24 +110,39 @@ scraper aws_alb_cloudwatch module {
         }
       }
     }
-
-    source cloudwatch "5xx_lb" {
+  }
+  gauge "status_5xx" {
+    source cloudwatch "status_5xx" {
       query {
         aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
-        metric_name = "HTTPCode_ELB_5XX_Count"
+        metric_name = "HTTPCode_Target_5XX_Count"
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
         }
       }
     }
-
-    source cloudwatch "5xx_target" {
+  }
+  gauge "lb_4xx" {
+    source cloudwatch "lb_4xx" {
       query {
         aggregator  = "Sum"
         namespace   = "AWS/ApplicationELB"
-        metric_name = "HTTPCode_Target_5XX_Count"
+        metric_name = "HTTPCode_ELB_4XX_Count"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+        }
+      }
+    }
+  }
+  gauge "lb_5xx" {
+    source cloudwatch "lb_5xx" {
+      query {
+        aggregator  = "Sum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "HTTPCode_ELB_5XX_Count"
 
         dimensions = {
           LoadBalancer = resources.each.LoadBalancer
@@ -310,10 +307,8 @@ scraper aws_alb_target_group_cloudwatch module {
   }
 
 
-  vector "latency" {
-    dimension_label = "stat"
-
-    source cloudwatch "min" {
+  gauge "latency_min" {
+    source cloudwatch "latency_min" {
       query {
         aggregator  = "Minimum"
         namespace   = "AWS/ApplicationELB"
@@ -325,8 +320,9 @@ scraper aws_alb_target_group_cloudwatch module {
         }
       }
     }
-
-    source cloudwatch "max" {
+  }
+  gauge "latency_max" {
+    source cloudwatch "latency_max" {
       query {
         aggregator  = "Maximum"
         namespace   = "AWS/ApplicationELB"
@@ -338,10 +334,25 @@ scraper aws_alb_target_group_cloudwatch module {
         }
       }
     }
-
-    source cloudwatch "avg" {
+  }
+  gauge "latency_sum" {
+    source cloudwatch "latency_sum" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup  = resources.each.TargetGroup
+        }
+      }
+    }
+  }
+  gauge "latency_count" {
+    source cloudwatch "latency_count" {
+      query {
+        aggregator  = "SampleCount"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 

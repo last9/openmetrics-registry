@@ -170,23 +170,23 @@ ingester aws_elasticache module {
 
   gauge "latency_min" {
     index       = 14
-    input_unit  = "percent"
-    output_unit = "percent"
+    input_unit  = "ms"
+    output_unit = "ms"
     aggregator  = "MIN"
 
     source prometheus "latency_min" {
-      query = "min by (CacheClusterId, tag_namespace, tag_service) (latency_min{CacheClusterId!='', tag_service!='', tag_namespace!=''})"
+      query = "min by (CacheClusterId, tag_namespace, tag_service) (latency_min{CacheClusterId!='', tag_service!='', tag_namespace!=''})*1000"
     }
   }
 
   gauge "latency_max" {
     index       = 15
-    input_unit  = "percent"
-    output_unit = "percent"
+    input_unit  = "ms"
+    output_unit = "ms"
     aggregator  = "MAX"
 
     source prometheus "latency_max" {
-      query = "max by (CacheClusterId, tag_namespace, tag_service) (latency_max{CacheClusterId!='', tag_service!='', tag_namespace!=''})"
+      query = "max by (CacheClusterId, tag_namespace, tag_service) (latency_max{CacheClusterId!='', tag_service!='', tag_namespace!=''})*1000"
     }
   }
 }

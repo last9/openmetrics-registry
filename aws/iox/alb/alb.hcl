@@ -154,29 +154,29 @@ ingester aws_alb module {
 
   gauge "latency_min" {
     index       = 13
-    input_unit  = "ms"
+    input_unit  = "s"
     output_unit = "ms"
     aggregator  = "MIN"
 
     source prometheus "latency_min" {
-      query = "min by (tag_service, tag_namespace, LoadBalancer) (latency_min{LoadBalancer!='', quantile='0',AvailabilityZone='',TargetGroup='', tag_service!='', tag_namespace!=''})"
+      query = "min by (tag_service, tag_namespace, LoadBalancer) (latency_min{LoadBalancer!='', AvailabilityZone='',TargetGroup='', tag_service!='', tag_namespace!=''})"
     }
   }
 
   gauge "latency_max" {
     index       = 14
-    input_unit  = "count"
-    output_unit = "count"
+    input_unit  = "s"
+    output_unit = "ms"
     aggregator  = "MAX"
 
     source prometheus "latency_max" {
-      query = "max by (tag_service, tag_namespace, LoadBalancer) (latency_max{LoadBalancer!='', quantile='1',AvailabilityZone='',TargetGroup='', tag_service!='', tag_namespace!=''})"
+      query = "max by (tag_service, tag_namespace, LoadBalancer) (latency_max{LoadBalancer!='', AvailabilityZone='',TargetGroup='', tag_service!='', tag_namespace!=''})"
     }
   }
 
   gauge "latency_sum" {
     index       = 15
-    input_unit  = "ms"
+    input_unit  = "s"
     output_unit = "ms"
     aggregator  = "SUM"
 
