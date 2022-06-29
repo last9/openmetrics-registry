@@ -307,10 +307,8 @@ scraper aws_alb_target_group_cloudwatch module {
   }
 
 
-  vector "latency" {
-    dimension_label = "stat"
-
-    source cloudwatch "min" {
+  gauge "latency_min" {
+    source cloudwatch "latency_min" {
       query {
         aggregator  = "Minimum"
         namespace   = "AWS/ApplicationELB"
@@ -322,8 +320,9 @@ scraper aws_alb_target_group_cloudwatch module {
         }
       }
     }
-
-    source cloudwatch "max" {
+  }
+  gauge "latency_max" {
+    source cloudwatch "latency_max" {
       query {
         aggregator  = "Maximum"
         namespace   = "AWS/ApplicationELB"
@@ -335,10 +334,25 @@ scraper aws_alb_target_group_cloudwatch module {
         }
       }
     }
-
-    source cloudwatch "avg" {
+  }
+  gauge "latency_sum" {
+    source cloudwatch "latency_sum" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
+        namespace   = "AWS/ApplicationELB"
+        metric_name = "TargetResponseTime"
+
+        dimensions = {
+          LoadBalancer = resources.each.LoadBalancer
+          TargetGroup  = resources.each.TargetGroup
+        }
+      }
+    }
+  }
+  gauge "latency_count" {
+    source cloudwatch "latency_count" {
+      query {
+        aggregator  = "SampleCount"
         namespace   = "AWS/ApplicationELB"
         metric_name = "TargetResponseTime"
 
