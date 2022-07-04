@@ -175,7 +175,7 @@ ingester aws_elasticache module {
     aggregator  = "MIN"
 
     source prometheus "latency_min" {
-      query = "min by (CacheClusterId, tag_namespace, tag_service) (latency_min{CacheClusterId!='', tag_service!='', tag_namespace!=''})*1000"
+      query = "min by (CacheClusterId, tag_namespace, tag_service) (latency_min{CacheClusterId!='', tag_service!='', tag_namespace!=''})/1000"
     }
   }
 
@@ -186,7 +186,7 @@ ingester aws_elasticache module {
     aggregator  = "MAX"
 
     source prometheus "latency_max" {
-      query = "max by (CacheClusterId, tag_namespace, tag_service) (latency_max{CacheClusterId!='', tag_service!='', tag_namespace!=''})*1000"
+      query = "max by (CacheClusterId, tag_namespace, tag_service) (latency_max{CacheClusterId!='', tag_service!='', tag_namespace!=''})/1000"
     }
   }
 }
