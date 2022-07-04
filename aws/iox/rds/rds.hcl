@@ -159,8 +159,8 @@ ingester aws_rds module {
 
   gauge "replica_lag" {
     index       = 11
-    input_unit  = "s"
-    output_unit = "s"
+    input_unit  = "ms"
+    output_unit = "ms"
     aggregator  = "MAX"
 
     source prometheus "replica_lag" {

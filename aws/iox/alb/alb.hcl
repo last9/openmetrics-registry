@@ -18,7 +18,7 @@ ingester aws_alb module {
   }
 
   physical_component {
-    type = "alb_physical"
+    type = "alb"
     name = "ALB"
   }
 
