@@ -19,7 +19,7 @@
 
 list_modules() {
   if [[ "$1" == "major" ]]; then
-    find aws/ gcp/ akamai/ influxdb/ -name '*.hcl'
+    find aws/ gcp/ akamai/ influxdb/ logs_to_metrics/ -name '*.hcl'
   else
     LATEST_RELEASE_TAG=$(git tag --list --sort creatordate | grep "module-\|release-" | tail -n2 | head -n1)
     git diff --name-only HEAD..$LATEST_RELEASE_TAG | grep -v "^sample\/" | find aws/ gcp/ akamai/ influxdb/ -name '*.hcl'
