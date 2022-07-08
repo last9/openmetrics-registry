@@ -23,7 +23,7 @@ ingester aws_alb module {
   }
 
   data_for_graph_node {
-    type = "alb"
+    type = "alb_logical"
     name = "$output{LoadBalancer}"
   }
 

@@ -41,9 +41,15 @@ scraper aws_rds_cloudstream module {
     }
   }
 
-  gauge "cpu" {
-    source promql "cpu" {
-      query = "avg by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_CPUUtilization_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_CPUUtilization_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+  gauge "cpu_sum" {
+    source promql "cpu_sum" {
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_CPUUtilization_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+    }
+  }
+
+  gauge "cpu_count" {
+    source promql "cpu_count" {
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_CPUUtilization_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
     }
   }
 
@@ -71,15 +77,27 @@ scraper aws_rds_cloudstream module {
     }
   }
 
-  gauge "network_in" {
+  gauge "network_in_sum" {
     source promql "network_in" {
-      query = "avg by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_NetworkReceiveThroughput_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_NetworkReceiveThroughput_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_NetworkReceiveThroughput_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_NetworkReceiveThroughput_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
     }
   }
 
-  gauge "network_out" {
+  gauge "network_in_count" {
+    source promql "network_in" {
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_NetworkReceiveThroughput_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+    }
+  }
+
+  gauge "network_out_sum" {
     source promql "network_out" {
-      query = "avg by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_NetworkTransmitThroughput_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_NetworkTransmitThroughput_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_NetworkTransmitThroughput_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+    }
+  }
+
+  gauge "network_out_count" {
+    source promql "network_out" {
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_NetworkTransmitThroughput_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
     }
   }
 }
