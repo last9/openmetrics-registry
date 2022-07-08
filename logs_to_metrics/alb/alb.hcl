@@ -1,4 +1,4 @@
-ingester logs_to_metrics_alb module {
+ingester logs_to_metrics_alb_gauge module {
   frequency  = 60
   lookback   = 600
   timeout    = 30
@@ -24,12 +24,12 @@ ingester logs_to_metrics_alb module {
   }
 
   physical_component {
-    type = "alb"
-    name = "alb"
+    type = "parsed_alb"
+    name = "parsed_alb"
   }
 
   data_for_graph_node {
-    type = "endpoint"
+    type = "parsed_endpoint"
     name = "$output{domain}$output{uri}"
   }
 
@@ -45,7 +45,7 @@ ingester logs_to_metrics_alb module {
   }
 
   gauge "bytes_in" {
-    index       = 3
+    index       = 2
     input_unit  = "bytes"
     output_unit = "bytes"
     aggregator  = "SUM"
@@ -56,7 +56,7 @@ ingester logs_to_metrics_alb module {
   }
 
   gauge "bytes_out" {
-    index       = 4
+    index       = 3
     input_unit  = "bytes"
     output_unit = "bytes"
     aggregator  = "SUM"
@@ -66,74 +66,82 @@ ingester logs_to_metrics_alb module {
     }
   }
 
-  status_histo "status_1xx" {
-    index       = 1
-    input_unit  = "count"
-    output_unit = "count"
-    aggregator  = "SUM"
-
-    source prometheus "status_1xx" {
-      histo_column = "response_code"
-      query        = "sum by (domain, uri, tag_service, code) (status_1xx{tag_service != '', domain != '', uri != '', code != ''})"
-    }
-  }
-
-  status_histo "status_2xx" {
-    index       = 2
-    input_unit  = "count"
-    output_unit = "count"
-    aggregator  = "SUM"
-
-    source prometheus "status_2xx" {
-      histo_column = "code"
-      query        = "sum by (domain, uri, tag_service, code) (status_2xx{tag_service != '', domain != '', uri != '', code != ''})"
-    }
-  }
-
-  status_histo "status_3xx" {
-    index       = 3
-    input_unit  = "count"
-    output_unit = "count"
-    aggregator  = "SUM"
-
-    source prometheus "status_3xx" {
-      histo_column = "code"
-      query        = "sum by (domain, uri, tag_service, code) (status_3xx{tag_service != '', domain != '', uri != '', code != ''})"
-    }
-  }
-
-  status_histo "status_4xx" {
+  gauge "status_1xx" {
     index       = 4
     input_unit  = "count"
     output_unit = "count"
     aggregator  = "SUM"
 
-    source prometheus "status_4xx" {
-      histo_column = "code"
-      query        = "sum by (domain, uri, tag_service, code) (status_4xx{tag_service != '', domain != '', uri != '', code != ''})"
+    source prometheus "status_1xx" {
+      query = "sum by (domain, uri, tag_service) (status_1xx{tag_service != '', domain != '', uri != '', code != ''})"
     }
   }
 
-  status_histo "status_5xx" {
+  gauge "status_2xx" {
     index       = 5
     input_unit  = "count"
     output_unit = "count"
     aggregator  = "SUM"
 
-    source prometheus "status_5xx" {
-      histo_column = "code"
-      query        = "sum by (domain, uri, tag_service, code) (status_5xx{tag_service != '', domain != '', uri != '', code != ''})"
+    source prometheus "status_2xx" {
+      query = "sum by (domain, uri, tag_service) (status_2xx{tag_service != '', domain != '', uri != '', code != ''})"
     }
   }
 
-  latency_histo "latency_histo" {
+
+  gauge "status_3xx" {
     index       = 6
+    input_unit  = "count"
+    output_unit = "count"
+    aggregator  = "SUM"
+
+    source prometheus "status_3xx" {
+      query = "sum by (domain, uri, tag_service, code) (status_3xx{tag_service != '', domain != '', uri != '', code != ''})"
+    }
+  }
+
+  gauge "status_4xx" {
+    index       = 7
+    input_unit  = "count"
+    output_unit = "count"
+    aggregator  = "SUM"
+
+    source prometheus "status_4xx" {
+      query = "sum by (domain, uri, tag_service, code) (status_4xx{tag_service != '', domain != '', uri != '', code != ''})"
+    }
+  }
+
+  gauge "status_5xx" {
+    index       = 8
+    input_unit  = "count"
+    output_unit = "count"
+    aggregator  = "SUM"
+
+    source prometheus "status_5xx" {
+      query = "sum by (domain, uri, tag_service, code) (status_5xx{tag_service != '', domain != '', uri != '', code != ''})"
+    }
+  }
+
+  gauge "latency_min" {
+    index       = 9
     input_unit  = "ms"
     output_unit = "ms"
-    aggregator  = "PERCENTILE"
+    aggregator  = "MIN"
 
-    source prometheus "latency" {
-      query = "sum by (domain, uri, tag_service, le) (latency_histo{tag_service != '', domain != '', uri != '', le != ''})"
+    source prometheus "latency_min" {
+      query = "histogram_quantile(0, rate(latency_histo{tag_service != '', domain != '', uri != '', le != ''}[1m]))"
+    }
+  }
+
+  gauge "latency_max" {
+    index       = 11
+    input_unit  = "ms"
+    output_unit = "ms"
+    aggregator  = "MAX"
+
+    source prometheus "latency_max" {
+      query = "histogram_quantile(1, rate(latency_histo{tag_service != '', domain != '', uri != '', le != ''}[1m]))"
     }
   }
 }
+
