@@ -1,4 +1,4 @@
-ingester logs_to_metrics_alb_gauge module {
+ingester logs_to_metrics_alb module {
   frequency  = 60
   lookback   = 600
   timeout    = 30
@@ -40,7 +40,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "SUM"
 
     source prometheus "throughput" {
-      query = "sum by (domain, uri, tag_service) (throughput{tag_service != '', domain != '', uri != ''})"
+      query = "sum by (domain, uri, tag_service) (throughput{tag_service != '', tag_namespace = 'alb',  domain != '', uri != ''})"
     }
   }
 
@@ -51,7 +51,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "SUM"
 
     source prometheus "throughput" {
-      query = "sum by (domain, uri, tag_service) (bytes_in{tag_service != '', domain != '', uri != ''})"
+      query = "sum by (domain, uri, tag_service) (bytes_in{tag_service != '', tag_namespace = 'alb',  domain != '', uri != ''})"
     }
   }
 
@@ -62,7 +62,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "SUM"
 
     source prometheus "throughput" {
-      query = "sum by (domain, uri, tag_service) (bytes_out{tag_service != '', domain != '', uri != ''})"
+      query = "sum by (domain, uri, tag_service) (bytes_out{tag_service != '', tag_namespace = 'alb',  domain != '', uri != ''})"
     }
   }
 
@@ -73,7 +73,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "SUM"
 
     source prometheus "status_1xx" {
-      query = "sum by (domain, uri, tag_service) (status_1xx{tag_service != '', domain != '', uri != '', code != ''})"
+      query = "sum by (domain, uri, tag_service) (status_1xx{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', code != ''})"
     }
   }
 
@@ -84,7 +84,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "SUM"
 
     source prometheus "status_2xx" {
-      query = "sum by (domain, uri, tag_service) (status_2xx{tag_service != '', domain != '', uri != '', code != ''})"
+      query = "sum by (domain, uri, tag_service) (status_2xx{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', code != ''})"
     }
   }
 
@@ -96,7 +96,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "SUM"
 
     source prometheus "status_3xx" {
-      query = "sum by (domain, uri, tag_service, code) (status_3xx{tag_service != '', domain != '', uri != '', code != ''})"
+      query = "sum by (domain, uri, tag_service, code) (status_3xx{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', code != ''})"
     }
   }
 
@@ -107,7 +107,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "SUM"
 
     source prometheus "status_4xx" {
-      query = "sum by (domain, uri, tag_service, code) (status_4xx{tag_service != '', domain != '', uri != '', code != ''})"
+      query = "sum by (domain, uri, tag_service, code) (status_4xx{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', code != ''})"
     }
   }
 
@@ -118,7 +118,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "SUM"
 
     source prometheus "status_5xx" {
-      query = "sum by (domain, uri, tag_service, code) (status_5xx{tag_service != '', domain != '', uri != '', code != ''})"
+      query = "sum by (domain, uri, tag_service, code) (status_5xx{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', code != ''})"
     }
   }
 
@@ -129,7 +129,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "MIN"
 
     source prometheus "latency_min" {
-      query = "histogram_quantile(0, rate(latency_histo{tag_service != '', domain != '', uri != '', le != ''}[1m]))"
+      query = "histogram_quantile(0, rate(latency_histo{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', le != ''}[1m]))"
     }
   }
 
@@ -140,8 +140,7 @@ ingester logs_to_metrics_alb_gauge module {
     aggregator  = "MAX"
 
     source prometheus "latency_max" {
-      query = "histogram_quantile(1, rate(latency_histo{tag_service != '', domain != '', uri != '', le != ''}[1m]))"
+      query = "histogram_quantile(1, rate(latency_histo{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', le != ''}[1m]))"
     }
   }
 }
-
