@@ -29,15 +29,27 @@ scraper aws_rds_cloudstream module {
     }
   }
 
-  gauge "read_latency" {
-    source promql "read_latency" {
-      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_ReadLatency_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_ReadLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+  gauge "read_latency_sum" {
+    source promql "read_latency_sum" {
+      query = "sum by (DBInstanceIdentifier) (amazonaws_com_AWS_RDS_ReadLatency_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
     }
   }
 
-  gauge "write_latency" {
-    source promql "write_latency" {
-      query = "sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'}) / sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+  gauge "read_latency_count" {
+    source promql "read_latency_count" {
+      query = "sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_ReadLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+    }
+  }
+
+  gauge "write_latency_sum" {
+    source promql "write_latency_sum" {
+      query = "sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency_sum{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
+    }
+  }
+
+  gauge "write_latency_count" {
+    source promql "write_latency_count" {
+      query = "sum by (DBInstanceIdentifier)  (amazonaws_com_AWS_RDS_WriteLatency_count{DBInstanceIdentifier=~'${join("|", resources.all.DBInstanceIdentifier)}'})"
     }
   }
 
