@@ -24,7 +24,7 @@ ingester aws_elasticache module {
 
   physical_component {
     type = "elasticache_cluster"
-    name = "RDS"
+    name = "Elasticache"
   }
 
   data_for_graph_node {
