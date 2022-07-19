@@ -27,7 +27,7 @@ ingester aws_ec2_cloudstream module {
   }
 
   data_for_graph_node {
-    type = "ec2_instance"
+    type = "ec2_instance_logical"
     name = "$output{InstanceId}"
   }
 
@@ -127,4 +127,3 @@ ingester aws_ec2_cloudstream module {
     }
   }
 }
-
