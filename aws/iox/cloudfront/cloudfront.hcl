@@ -27,7 +27,7 @@ ingester aws_cloudfront module {
   }
 
   data_for_graph_node {
-    type = "cloudfront_distribution"
+    type = "cloudfront_distribution_logical"
     name = "$output{DistributionId}"
   }
 
