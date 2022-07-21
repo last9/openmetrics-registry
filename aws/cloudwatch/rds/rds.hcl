@@ -47,10 +47,10 @@ scraper aws_rds_cloudwatch module {
     }
   }
 
-  gauge "read_latency" {
-    source cloudwatch "read_latency" {
+  gauge "read_latency_sum" {
+    source cloudwatch "read_latency_sum" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
         namespace   = "AWS/RDS"
         metric_name = "ReadLatency"
 
@@ -61,10 +61,40 @@ scraper aws_rds_cloudwatch module {
     }
   }
 
-  gauge "write_latency" {
-    source cloudwatch "wrtie_latency" {
+
+  gauge "read_latency_count" {
+    source cloudwatch "read_latency_count" {
       query {
-        aggregator  = "Average"
+        aggregator  = "SampleCount"
+        namespace   = "AWS/RDS"
+        metric_name = "ReadLatency"
+
+        dimensions = {
+          DBInstanceIdentifier = resources.each.DBInstanceIdentifier
+        }
+      }
+    }
+  }
+
+
+  gauge "write_latency_sum" {
+    source cloudwatch "wrtie_latency_sum" {
+      query {
+        aggregator  = "Sum"
+        namespace   = "AWS/RDS"
+        metric_name = "WriteLatency"
+
+        dimensions = {
+          DBInstanceIdentifier = resources.each.DBInstanceIdentifier
+        }
+      }
+    }
+  }
+
+  gauge "write_latency_count" {
+    source cloudwatch "wrtie_latency_count" {
+      query {
+        aggregator  = "SampleCount"
         namespace   = "AWS/RDS"
         metric_name = "WriteLatency"
 
@@ -103,10 +133,24 @@ scraper aws_rds_cloudwatch module {
     }
   }
 
-  gauge "cpu" {
-    source cloudwatch "cpu" {
+  gauge "cpu_sum" {
+    source cloudwatch "cpu_sum" {
       query {
-        aggregator  = "Average"
+        aggregator  = "Sum"
+        namespace   = "AWS/RDS"
+        metric_name = "CPUUtilization"
+
+        dimensions = {
+          DBInstanceIdentifier = resources.each.DBInstanceIdentifier
+        }
+      }
+    }
+  }
+
+  gauge "cpu_count" {
+    source cloudwatch "cpu_count" {
+      query {
+        aggregator  = "SampleCount"
         namespace   = "AWS/RDS"
         metric_name = "CPUUtilization"
 
