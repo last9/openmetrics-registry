@@ -1,10 +1,9 @@
-scraper aws_aurora_instance_logical_cloudwatch module {
+scraper aws_aurora_cloudwatch module {
   frequency  = 60
   lookback   = 600
   timeout    = 30
   resolution = 60
   lag        = 60
-
 
   gauge "connections" {
     source cloudwatch "connections" {
@@ -146,15 +145,6 @@ scraper aws_aurora_instance_logical_cloudwatch module {
       }
     }
   }
-}
-
-scraper aws_aurora_instance_physical_cloudwatch module {
-  frequency  = 60
-  lookback   = 600
-  timeout    = 30
-  resolution = 60
-  lag        = 60
-
 
   gauge "network_in" {
     source cloudwatch "network_in" {
@@ -239,4 +229,19 @@ scraper aws_aurora_instance_physical_cloudwatch module {
       }
     }
   }
+
+  gauge "db_load" {
+    source cloudwatch "db_load" {
+      query {
+        aggregator  = "Average"
+        namespace   = "AWS/RDS"
+        metric_name = "DBLoad"
+
+        dimensions = {
+          "DBInstanceIdentifier" = resources.each.DBInstanceIdentifier
+        }
+      }
+    }
+  }
+
 }
