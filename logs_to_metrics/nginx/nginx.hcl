@@ -122,6 +122,7 @@ ingester logs_to_metrics_nginx module {
     }
   }
 
+
   gauge "latency_min" {
     index       = 9
     input_unit  = "ms"
@@ -129,7 +130,7 @@ ingester logs_to_metrics_nginx module {
     aggregator  = "MIN"
 
     source prometheus "latency_min" {
-      query = "histogram_quantile(0, rate(latency_histo{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', le != ''}[1m]))"
+      query = "histogram_quantile(0, rate(latency_histo{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', le != ''}[1m]*60))"
     }
   }
 
@@ -140,7 +141,29 @@ ingester logs_to_metrics_nginx module {
     aggregator  = "MAX"
 
     source prometheus "latency_max" {
-      query = "histogram_quantile(1, rate(latency_histo{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', le != ''}[1m]))"
+      query = "histogram_quantile(1, rate(latency_histo{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', le != ''}[1m]*60))"
+    }
+  }
+
+  gauge "latency_p50" {
+    index       = 12
+    input_unit  = "ms"
+    output_unit = "ms"
+    aggregator  = "MAX"
+
+    source prometheus "latency_p50" {
+      query = "histogram_quantile(0.50, rate(latency_histo{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', le != ''}[1m]*60))"
+    }
+  }
+
+  gauge "latency_p90" {
+    index       = 13
+    input_unit  = "ms"
+    output_unit = "ms"
+    aggregator  = "MAX"
+
+    source prometheus "latency_p90" {
+      query = "histogram_quantile(0.90, rate(latency_histo{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', le != ''}[1m]*60))"
     }
   }
 }
