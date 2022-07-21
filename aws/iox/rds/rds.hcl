@@ -17,11 +17,6 @@ ingester aws_rds module {
     name = "$output{tag_namespace}"
   }
 
-  physical_address {
-    type = "rds_physical"
-    name = "$output{DBInstanceIdentifier}"
-  }
-
   physical_component {
     type = "rds"
     name = "RDS"
@@ -69,17 +64,6 @@ ingester aws_rds module {
     }
   }
 
-  gauge "cpu" {
-    index       = 8
-    input_unit  = "percent"
-    output_unit = "percent"
-    aggregator  = "AVG"
-
-    source prometheus "cpu" {
-      query = "avg by (DBInstanceIdentifier, tag_namespace, tag_service) (cpu{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
-    }
-  }
-
   gauge "burst_balance" {
     index       = 14
     input_unit  = "percentage"
@@ -91,6 +75,39 @@ ingester aws_rds module {
     }
   }
 
+  gauge "read_latency" {
+    index       = 4
+    input_unit  = "s"
+    output_unit = "s"
+    aggregator  = "AVG"
+
+    source prometheus "read_latency" {
+      query = "sum by (DBInstanceIdentifier, tag_namespace, tag_service) (read_latency_sum{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''}) / sum by (DBInstanceIdentifier, tag_namespace, tag_service) (read_latency_count{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
+    }
+  }
+
+  gauge "write_latency" {
+    index       = 5
+    input_unit  = "s"
+    output_unit = "s"
+    aggregator  = "AVG"
+
+    source prometheus "write_latency" {
+      query = "sum by (DBInstanceIdentifier, tag_namespace, tag_service) (write_latency_sum{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''}) / sum by (DBInstanceIdentifier, tag_namespace, tag_service) (write_latency_count{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
+    }
+  }
+
+  gauge "cpu" {
+    index       = 8
+    input_unit  = "percent"
+    output_unit = "percent"
+    aggregator  = "AVG"
+
+    source prometheus "cpu" {
+      query = "sum by (DBInstanceIdentifier, tag_namespace, tag_service) (cpu_sum{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''}) / sum by (DBInstanceIdentifier, tag_namespace, tag_service) (cpu_count{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
+    }
+  }
+
   gauge "cpu_balance" {
     index       = 13
     input_unit  = "count"
@@ -99,50 +116,6 @@ ingester aws_rds module {
 
     source prometheus "read_iops" {
       query = "min by (DBInstanceIdentifier, tag_namespace, tag_service) (read_iops{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
-    }
-  }
-
-  gauge "read_latency" {
-    index       = 4
-    input_unit  = "s"
-    output_unit = "s"
-    aggregator  = "SUM"
-
-    source prometheus "read_latency" {
-      query = "sum by (DBInstanceIdentifier, tag_namespace, tag_service) (read_latency{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
-    }
-  }
-
-  gauge "write_latency" {
-    index       = 5
-    input_unit  = "s"
-    output_unit = "s"
-    aggregator  = "SUM"
-
-    source prometheus "write_latency" {
-      query = "sum by (DBInstanceIdentifier, tag_namespace, tag_service) (write_latency{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
-    }
-  }
-
-  gauge "network_in" {
-    index       = 15
-    input_unit  = "bps"
-    output_unit = "bps"
-    aggregator  = "AVG"
-
-    source prometheus "network_in" {
-      query = "avg by (DBInstanceIdentifier, tag_namespace, tag_service) (network_in{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
-    }
-  }
-
-  gauge "network_out" {
-    index       = 16
-    input_unit  = "bps"
-    output_unit = "bps"
-    aggregator  = "AVG"
-
-    source prometheus "network_out" {
-      query = "avg by (DBInstanceIdentifier, tag_namespace, tag_service) (network_out{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
     }
   }
 
@@ -176,6 +149,28 @@ ingester aws_rds module {
 
     source prometheus "queue_depth" {
       query = "max by (DBInstanceIdentifier, tag_namespace, tag_service) (queue_depth{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
+    }
+  }
+
+  gauge "network_in" {
+    index       = 15
+    input_unit  = "bps"
+    output_unit = "bps"
+    aggregator  = "AVG"
+
+    source prometheus "network_in" {
+      query = "avg by (DBInstanceIdentifier, tag_namespace, tag_service) (network_in{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
+    }
+  }
+
+  gauge "network_out" {
+    index       = 16
+    input_unit  = "bps"
+    output_unit = "bps"
+    aggregator  = "AVG"
+
+    source prometheus "network_out" {
+      query = "avg by (DBInstanceIdentifier, tag_namespace, tag_service) (network_out{DBInstanceIdentifier!='', tag_service!='', tag_namespace!=''})"
     }
   }
 }

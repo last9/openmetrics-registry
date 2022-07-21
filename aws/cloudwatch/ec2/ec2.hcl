@@ -89,7 +89,7 @@ scraper aws_ec2_cloudwatch module {
     }
   }
 
-  gauge "cpu_balance" {
+  gauge "cpu_credit_balance" {
     source cloudwatch "cpu_balance" {
       query {
         aggregator  = "Minimum"
@@ -102,4 +102,47 @@ scraper aws_ec2_cloudwatch module {
       }
     }
   }
+
+  //   gauge "ebs_io_balance" {
+  //     source cloudwatch "ebs_io_balance" {
+  //       query {
+  //         aggregator  = "Minimum"
+  //         namespace   = "AWS/EC2"
+  //         metric_name = "EBSIOBalance%"
+
+  //         dimensions = {
+  //           InstanceId = resources.each.InstanceId
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   gauge "ebs_byte_balance" {
+  //     source cloudwatch "ebs_byte_balance" {
+  //       query {
+  //         aggregator  = "Minimum"
+  //         namespace   = "AWS/EC2"
+  //         metric_name = "EBSByteBalance%"
+
+  //         dimensions = {
+  //           InstanceId = resources.each.InstanceId
+  //         }
+  //       }
+  //     }
+  //   }
+
+  gauge "cpu_surplus_credits_charged" {
+    source cloudwatch "cpu_surplus_credits_charged" {
+      query {
+        aggregator  = "Maximum"
+        namespace   = "AWS/EC2"
+        metric_name = "CPUSurplusCreditsCharged"
+
+        dimensions = {
+          InstanceId = resources.each.InstanceId
+        }
+      }
+    }
+  }
+
 }
