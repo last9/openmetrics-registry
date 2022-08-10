@@ -2,9 +2,7 @@ name: Release
 
 on:
   push:
-    tags:
-      - release-*
-      - module-*
+    branches: [ master ]
 
 jobs:
   release:
@@ -21,7 +19,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          bump_version_scheme: "${{ contains(github.ref, 'release-') && 'major' || 'patch' }}"
+          bump_version_scheme: patch
 
       - name: Get HCL files to release
         id: find_files
