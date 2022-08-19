@@ -99,7 +99,7 @@ scraper prometheus_kube_cluster_with_namespace module {
   gauge "failed_and_unknown_pods" {
 
     source promql "failed_and_unknown_pods" {
-      query = "sum by (cluster, namespace) (kube_pod_status_phase{cluster=~'${join("|", resources.all.cluster)}',phase=~'Failed|Unknown'})"
+      query = "sum by (cluster, namespace) (rate(kube_pod_status_phase{cluster=~'${join("|", resources.all.cluster)}',phase=~'Failed|Unknown'}))"
     }
   }
 
