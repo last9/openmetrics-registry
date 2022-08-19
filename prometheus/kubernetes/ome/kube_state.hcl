@@ -8,21 +8,21 @@ scraper prometheus_kube_cluster module {
   gauge "available_nodes" {
 
     source promql "available_nodes" {
-      query = "sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='Ready', status='true'}) / sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='Ready'})"
+      query = "sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='Ready', status='true'}) *100 / sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='Ready'})"
 
     }
   }
 
   gauge "disk_pressure_nodes" {
     source promql "disk_pressure_nodes" {
-      query = "sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='DiskPressure', status='true'}) / sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='DiskPressure', })"
+      query = "sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='DiskPressure', status='true'}) *100 / sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='DiskPressure', })"
 
     }
   }
 
   gauge "pid_pressure_nodes" {
     source promql "pid_pressure_nodes" {
-      query = "sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='PIDPressure', status='true'})/ sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='PIDPressure'})"
+      query = "sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='PIDPressure', status='true'}) *100/ sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='PIDPressure'})"
     }
   }
 
@@ -30,7 +30,7 @@ scraper prometheus_kube_cluster module {
 
 
     source promql "memory_pressure_nodes" {
-      query = "sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='MemoryPressure', status='true'})/ sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='MemoryPressure'})"
+      query = "sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='MemoryPressure', status='true'}) *100 / sum by (cluster)(kube_node_status_condition{cluster=~'${join("|", resources.all.cluster)}',condition='MemoryPressure'})"
 
     }
   }
