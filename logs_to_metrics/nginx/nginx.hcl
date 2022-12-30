@@ -96,7 +96,7 @@ ingester logs_to_metrics_nginx module {
     aggregator  = "SUM"
 
     source prometheus "status_3xx" {
-      query = "sum by (domain, uri, tag_service, code) (status_3xx{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', code != ''})"
+      query = "sum by (domain, uri, tag_service) (status_3xx{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', code != ''})"
     }
   }
 
@@ -107,7 +107,7 @@ ingester logs_to_metrics_nginx module {
     aggregator  = "SUM"
 
     source prometheus "status_4xx" {
-      query = "sum by (domain, uri, tag_service, code) (status_4xx{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', code != ''})"
+      query = "sum by (domain, uri, tag_service) (status_4xx{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', code != ''})"
     }
   }
 
@@ -118,7 +118,7 @@ ingester logs_to_metrics_nginx module {
     aggregator  = "SUM"
 
     source prometheus "status_5xx" {
-      query = "sum by (domain, uri, tag_service, code) (status_5xx{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', code != ''})"
+      query = "sum by (domain, uri, tag_service) (status_5xx{tag_service != '', tag_namespace = 'nginx',  domain != '', uri != '', code != ''})"
     }
   }
 
