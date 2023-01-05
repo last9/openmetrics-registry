@@ -122,24 +122,14 @@ ingester logs_to_metrics_alb module {
     }
   }
 
-  gauge "latency_min" {
-    index       = 9
-    input_unit  = "ms"
-    output_unit = "ms"
-    aggregator  = "MIN"
 
-    source prometheus "latency_min" {
-      query = "histogram_quantile(0, sum by (domain, uri, tag_service, le) (increase(latency_histo{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', le != ''}[1m])))"
-    }
-  }
-
-  gauge "latency_max" {
+  gauge "latency_p99" {
     index       = 11
     input_unit  = "ms"
     output_unit = "ms"
-    aggregator  = "MAX"
+    aggregator  = "AVG"
 
-    source prometheus "latency_max" {
+    source prometheus "latency_p99" {
       query = "histogram_quantile(0.99, sum by (domain, uri, tag_service, le) (increase(latency_histo{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', le != ''}[1m])))"
     }
   }
@@ -148,7 +138,7 @@ ingester logs_to_metrics_alb module {
     index       = 12
     input_unit  = "ms"
     output_unit = "ms"
-    aggregator  = "MAX"
+    aggregator  = "AVG"
 
     source prometheus "latency_p50" {
       query = "histogram_quantile(0.50, sum by (domain, uri, tag_service, le) (increase(latency_histo{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', le != ''}[1m])))"
@@ -159,7 +149,7 @@ ingester logs_to_metrics_alb module {
     index       = 13
     input_unit  = "ms"
     output_unit = "ms"
-    aggregator  = "MAX"
+    aggregator  = "AVG"
 
     source prometheus "latency_p90" {
       query = "histogram_quantile(0.90, sum by (domain, uri, tag_service, le) (increase(latency_histo{tag_service != '', tag_namespace = 'alb',  domain != '', uri != '', le != ''}[1m])))"
